@@ -38,18 +38,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
-const wait_1 = __nccwpck_require__(817);
+const promises_1 = __nccwpck_require__(292);
+const path_1 = __importDefault(__nccwpck_require__(17));
+const fs_1 = __nccwpck_require__(147);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const ms = core.getInput('milliseconds');
-            core.debug(`Waiting ${ms} milliseconds ...`); // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
-            core.debug(new Date().toTimeString());
-            yield (0, wait_1.wait)(parseInt(ms, 10));
-            core.debug(new Date().toTimeString());
-            core.setOutput('time', new Date().toTimeString());
+            const getDirectories = (source) => __awaiter(this, void 0, void 0, function* () {
+                return (yield (0, promises_1.readdir)(path_1.default.resolve(process.cwd(), source), {
+                    withFileTypes: true
+                }))
+                    .filter(dirent => dirent.isDirectory())
+                    .map(dirent => dirent.name);
+            });
+            const [directoryName] = yield getDirectories('./spring-boot-project/spring-boot/.drtools/analysis/');
+            const smellsSummaryFile = (0, fs_1.readFileSync)(`./spring-boot-project/spring-boot/.drtools/analysis/${directoryName}/smells/drtools-summary-smells.json`, 'utf-8');
+            const smellsSummary = JSON.parse(smellsSummaryFile);
+            const formatSmells = (smells) => {
+                return smells.map(({ smell, instances, perc_instances }) => `*${smell}* - ${instances} instances - ${perc_instances}\n`);
+            };
+            const text = smellsSummary.map(({ granularity, smells }) => `# ${granularity}\n${formatSmells(smells)}`);
+            core.setOutput('prtext', text);
         }
         catch (error) {
             if (error instanceof Error)
@@ -58,37 +72,6 @@ function run() {
     });
 }
 run();
-
-
-/***/ }),
-
-/***/ 817:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.wait = void 0;
-function wait(milliseconds) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new Promise(resolve => {
-            if (isNaN(milliseconds)) {
-                throw new Error('milliseconds not a number');
-            }
-            setTimeout(() => resolve('done!'), milliseconds);
-        });
-    });
-}
-exports.wait = wait;
 
 
 /***/ }),
@@ -2809,6 +2792,14 @@ module.exports = require("events");
 
 "use strict";
 module.exports = require("fs");
+
+/***/ }),
+
+/***/ 292:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("fs/promises");
 
 /***/ }),
 

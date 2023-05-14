@@ -1,11 +1,9 @@
-name: 'Your name here'
+name: 'Extract DR Tools Data'
 description: 'Provide a description here'
 author: 'Your name or organization here'
-inputs:
-  milliseconds: # change this
-    required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+outputs:
+  prtext:
+    description: 'Text that will be pasted on the Pull Request'
 runs:
   using: 'node16'
   main: 'dist/index.js'
