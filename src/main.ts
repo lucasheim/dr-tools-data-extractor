@@ -16,7 +16,7 @@ interface AnalysisBlock {
 
 async function run(): Promise<void> {
   try {
-    const getDirectories = async (source: string) =>
+    const getDirectories = async (source: string): Promise<string[]> =>
       (
         await readdir(path.resolve(process.cwd(), source), {
           withFileTypes: true
@@ -35,7 +35,7 @@ async function run(): Promise<void> {
     )
     const smellsSummary: AnalysisBlock[] = JSON.parse(smellsSummaryFile)
 
-    const formatSmells = (smells: Smell[]) => {
+    const formatSmells = (smells: Smell[]): string[] => {
       return smells.map(
         ({ smell, instances, perc_instances }) =>
           `*${smell}* - ${instances} instances - ${perc_instances}\n`
@@ -46,7 +46,7 @@ async function run(): Promise<void> {
       ({ granularity, smells }) => `# ${granularity}\n${formatSmells(smells)}`
     )
 
-    core.setOutput('prtext', text)
+    core.setOutput('prtext', text.join(''))
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
