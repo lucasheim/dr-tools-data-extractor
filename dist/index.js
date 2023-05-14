@@ -63,7 +63,7 @@ function run() {
                 return smells.map(({ smell, instances, perc_instances }) => `*${smell}* - ${instances} instances - ${perc_instances}\n`);
             };
             const text = smellsSummary.map(({ granularity, smells }) => `# ${granularity}\n${formatSmells(smells)}`);
-            core.setOutput('prtext', text);
+            core.setOutput('prtext', text.join(''));
         }
         catch (error) {
             if (error instanceof Error)
