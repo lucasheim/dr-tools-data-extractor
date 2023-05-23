@@ -1,0 +1,61 @@
+[
+  {
+    "granularity": "NAMESPACE",
+    "smells": [
+      {
+        "smell": "Too Large Package/Subsystem",
+        "instances": 11,
+        "perc_instances": "100.00%"
+      }
+    ]
+  },
+  {
+    "granularity": "TYPE",
+    "smells": [
+      {
+        "smell": "Insufficient Modularization",
+        "instances": 208,
+        "perc_instances": "96.30%"
+      },
+      {
+        "smell": "Multifaceted Abstraction",
+        "instances": 51,
+        "perc_instances": "23.61%"
+      },
+      {
+        "smell": "Deep Hierarchy",
+        "instances": 24,
+        "perc_instances": "11.11%"
+      },
+      { "smell": "God Class", "instances": 10, "perc_instances": "4.63%" },
+      {
+        "smell": "Hub-like Modularization",
+        "instances": 5,
+        "perc_instances": "2.31%"
+      },
+      {
+        "smell": "Deficient Encapsulation",
+        "instances": 1,
+        "perc_instances": "0.46%"
+      },
+      { "smell": "Wide Hierarchy", "instances": 1, "perc_instances": "0.46%" }
+    ]
+  },
+  {
+    "granularity": "METHOD",
+    "smells": [
+      {
+        "smell": "Complex Method",
+        "instances": 1706,
+        "perc_instances": "90.84%"
+      },
+      { "smell": "Bumpy Road", "instances": 509, "perc_instances": "27.10%" },
+      { "smell": "Long Method", "instances": 43, "perc_instances": "2.29%" },
+      {
+        "smell": "Long Parameter List",
+        "instances": 34,
+        "perc_instances": "1.81%"
+      }
+    ]
+  }
+]

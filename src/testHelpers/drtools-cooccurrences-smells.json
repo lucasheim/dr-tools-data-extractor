@@ -1,0 +1,82 @@
+[
+  {
+    "category": "TYPE",
+    "data": [
+      {
+        "description": "Complex and low cohesion structures in types",
+        "instances": 36,
+        "percentual": "16.67%",
+        "smells": "Insufficient Modularization, Multifaceted Abstraction",
+        "impacts_on": "Cohesion, Complexity"
+      },
+      {
+        "description": "Deep hierarchy, big and low cohesion structures in types",
+        "instances": 5,
+        "percentual": "2.31%",
+        "smells": "God Class, Insufficient Modularization, Deep Hierarchy, Multifaceted Abstraction",
+        "impacts_on": "Complexity, Size"
+      },
+      {
+        "description": "Low cohesion and big structures in types",
+        "instances": 2,
+        "percentual": "0.93%",
+        "smells": "Insufficient Modularization, God Class",
+        "impacts_on": "Cohesion, Size"
+      },
+      {
+        "description": "Complex structures in types",
+        "instances": 1,
+        "percentual": "0.46%",
+        "smells": "God Class, Insufficient Modularization, Multifaceted Abstraction",
+        "impacts_on": "Complexity, Size"
+      },
+      {
+        "description": "Low cohesion and high coupling structures in types",
+        "instances": 1,
+        "percentual": "0.46%",
+        "smells": "Insufficient Modularization, Hub-Like Modularization",
+        "impacts_on": "Cohesion, Coupling"
+      }
+    ]
+  },
+  {
+    "category": "METHOD",
+    "data": [
+      {
+        "description": "High complexity structures in methods",
+        "instances": 343,
+        "percentual": "18.26%",
+        "smells": "Complex Method, Bumpy Road",
+        "impacts_on": "Complexity"
+      },
+      {
+        "description": "Structures difficult to maintain in methods ",
+        "instances": 17,
+        "percentual": "0.91%",
+        "smells": "Complex Method, Long Method",
+        "impacts_on": "Complexity, Size"
+      },
+      {
+        "description": "Several parameters and complex structures in methods",
+        "instances": 15,
+        "percentual": "0.80%",
+        "smells": "Long Parameter List, Complex Method",
+        "impacts_on": "Complexity, Size"
+      },
+      {
+        "description": "Complex structures in methods",
+        "instances": 12,
+        "percentual": "0.64%",
+        "smells": "Bumpy Road, Long Method, Complex Method",
+        "impacts_on": "Complexity"
+      },
+      {
+        "description": "Big structures in methods",
+        "instances": 1,
+        "percentual": "0.05%",
+        "smells": "Long Method, Long Parameter List",
+        "impacts_on": "Size"
+      }
+    ]
+  }
+]

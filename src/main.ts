@@ -1,52 +1,84 @@
 import * as core from '@actions/core'
 import { readdir } from 'fs/promises'
 import path from 'path'
-import { readFileSync } from 'fs'
+import { existsSync, readFileSync } from 'fs'
+import { parseSmellsSummary } from './parsers/smells-summary'
+import { parseMetricSummary } from './parsers/metric-summary'
+import { parseCooccurrencesSummary } from './parsers/coocurrences'
+import { validateSmellsLimit } from './validations/smells-validation'
 
-interface Smell {
-  smell: string
-  instances: string
-  perc_instances: string
+enum AnalysisFiles {
+  SmellsSummary,
+  MetricsSummary,
+  CoOcurrencesSmells,
+  SmellLimits
 }
 
-interface AnalysisBlock {
-  granularity: string
-  smells: Smell[]
+const pathMap: { [key in AnalysisFiles]: (basePath: string) => string } = {
+  [AnalysisFiles.SmellsSummary]: (basePath: string) =>
+    `${basePath}/smells/drtools-summary-smells.json`,
+  [AnalysisFiles.MetricsSummary]: (basePath: string) =>
+    `${basePath}/metrics/drtools-metric-summary.json`,
+  [AnalysisFiles.CoOcurrencesSmells]: (basePath: string) =>
+    `${basePath}/metrics/drtools-cooccurrences-smells.json`,
+  [AnalysisFiles.SmellLimits]: (basePath: string) =>
+    `${basePath}/smells-limits.json`
 }
 
-async function run(): Promise<void> {
+const getDirectories = async (source: string): Promise<string[]> =>
+  (
+    await readdir(path.resolve(process.cwd(), source), {
+      withFileTypes: true
+    })
+  )
+    .filter(file => file.isDirectory())
+    .map(dir => dir.name)
+
+export async function run(): Promise<void> {
   try {
-    const getDirectories = async (source: string): Promise<string[]> =>
-      (
-        await readdir(path.resolve(process.cwd(), source), {
-          withFileTypes: true
-        })
-      )
-        .filter(dirent => dirent.isDirectory())
-        .map(dirent => dirent.name)
+    const baseFolder = core.getInput('basePath')
 
-    const [directoryName] = await getDirectories(
-      './spring-boot-project/spring-boot/.drtools/analysis/'
-    )
+    const [directoryName] = await getDirectories(`${baseFolder}/analysis/`)
+
+    const baseAnalysisPath = `${baseFolder}/analysis/${directoryName}`
 
     const smellsSummaryFile = readFileSync(
-      `./spring-boot-project/spring-boot/.drtools/analysis/${directoryName}/smells/drtools-summary-smells.json`,
+      pathMap[AnalysisFiles.SmellsSummary](baseAnalysisPath),
       'utf-8'
     )
-    const smellsSummary: AnalysisBlock[] = JSON.parse(smellsSummaryFile)
+    const smellsSummary = parseSmellsSummary(smellsSummaryFile)
 
-    const formatSmells = (smells: Smell[]): string[] => {
-      return smells.map(
-        ({ smell, instances, perc_instances }) =>
-          `*${smell}* - ${instances} instances - ${perc_instances}\n`
-      )
+    const metricsSummaryFile = readFileSync(
+      pathMap[AnalysisFiles.MetricsSummary](baseAnalysisPath),
+      'utf-8'
+    )
+    const metricsSummary = parseMetricSummary(metricsSummaryFile)
+
+    const coocurrencesFile = readFileSync(
+      pathMap[AnalysisFiles.CoOcurrencesSmells](baseAnalysisPath),
+      'utf-8'
+    )
+    const coocurrences = parseCooccurrencesSummary(coocurrencesFile)
+
+    const smellsLimitPath = pathMap[AnalysisFiles.SmellLimits](baseAnalysisPath)
+
+    if (existsSync(smellsLimitPath)) {
+      const smellLimits = readFileSync(smellsLimitPath, 'utf-8')
+
+      const violations = validateSmellsLimit(smellsSummaryFile, smellLimits)
+
+      if (violations) {
+        core.setFailed(JSON.stringify(violations))
+      }
     }
 
-    const text = smellsSummary.map(
-      ({ granularity, smells }) => `# ${granularity}\n${formatSmells(smells)}`
-    )
+    const pullRequestOutput = [
+      metricsSummary,
+      smellsSummary,
+      coocurrences
+    ].join('/n')
 
-    core.setOutput('prtext', text.join(''))
+    core.setOutput('prtext', pullRequestOutput)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
