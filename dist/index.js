@@ -151,7 +151,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseCooccurrencesSummary = void 0;
 const parseCooccurrences = (coocurrences) => {
     return coocurrences
-        .map(({ description, instances, percentual, impacts_on }) => `**${description}** - ${instances} instances - ${percentual}\nImpacts on: ${impacts_on}`)
+        .map(({ description, instances, percentual, impacts_on }) => `**${description.trim()}** - ${instances} instances - ${percentual}\nImpacts on: ${impacts_on}`)
         .join('\n\n');
 };
 const parseCooccurrencesSummary = (coocurrenceFile) => {
@@ -182,7 +182,7 @@ const fromSnakeCaseToCapitalized = (text) => {
 const parseMetricSummary = (metricSummaryFile) => {
     const metricsSummary = JSON.parse(metricSummaryFile);
     return metricsSummary
-        .map(({ description, value }) => `### ${fromSnakeCaseToCapitalized(description)} - ${value}\n`)
+        .map(({ description, value }) => `**${fromSnakeCaseToCapitalized(description)}** - ${value}\n`)
         .join('');
 };
 exports.parseMetricSummary = parseMetricSummary;

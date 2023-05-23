@@ -15,7 +15,7 @@ const parseCooccurrences = (coocurrences: CoOcurrence[]): string => {
   return coocurrences
     .map(
       ({ description, instances, percentual, impacts_on }) =>
-        `**${description}** - ${instances} instances - ${percentual}\nImpacts on: ${impacts_on}`
+        `**${description.trim()}** - ${instances} instances - ${percentual}\nImpacts on: ${impacts_on}`
     )
     .join('\n\n')
 }

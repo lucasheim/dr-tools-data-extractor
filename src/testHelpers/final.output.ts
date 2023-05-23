@@ -1,11 +1,11 @@
 export const output = `# DR-Tools Diagnosis
 
 ## General metrics
-### Total Namespaces - 109
-### Total Types - 1060
-### Total Sloc - 88702
-### Total Methods - 9816
-### Total Cyclo - 22109
+**Total Namespaces** - 109
+**Total Types** - 1060
+**Total Sloc** - 88702
+**Total Methods** - 9816
+**Total Cyclo** - 22109
 
 
 ## Smells
@@ -46,7 +46,7 @@ Impacts on: Cohesion, Coupling
 **High complexity structures in methods** - 343 instances - 18.26%
 Impacts on: Complexity
 
-**Structures difficult to maintain in methods ** - 17 instances - 0.91%
+**Structures difficult to maintain in methods** - 17 instances - 0.91%
 Impacts on: Complexity, Size
 
 **Several parameters and complex structures in methods** - 15 instances - 0.80%

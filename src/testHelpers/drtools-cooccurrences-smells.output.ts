@@ -17,7 +17,7 @@ Impacts on: Cohesion, Coupling
 **High complexity structures in methods** - 343 instances - 18.26%
 Impacts on: Complexity
 
-**Structures difficult to maintain in methods ** - 17 instances - 0.91%
+**Structures difficult to maintain in methods** - 17 instances - 0.91%
 Impacts on: Complexity, Size
 
 **Several parameters and complex structures in methods** - 15 instances - 0.80%

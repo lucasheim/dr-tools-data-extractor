@@ -20,7 +20,7 @@ export const parseMetricSummary = (metricSummaryFile: string): string => {
   return metricsSummary
     .map(
       ({ description, value }) =>
-        `### ${fromSnakeCaseToCapitalized(description)} - ${value}\n`
+        `**${fromSnakeCaseToCapitalized(description)}** - ${value}\n`
     )
     .join('')
 }
