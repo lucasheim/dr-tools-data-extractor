@@ -97,6 +97,7 @@ function run() {
             if ((0, fs_1.existsSync)(smellsLimitPath)) {
                 core.debug('Exists limits');
                 const smellLimits = (0, fs_1.readFileSync)(smellsLimitPath, 'utf-8');
+                core.debug(`Limits content: ${smellLimits}`);
                 const violations = (0, smells_validation_1.validateSmellsLimit)(smellsSummaryFile, smellLimits);
                 core.debug(`Violations: ${violations}`);
                 if (violations) {
@@ -211,20 +212,47 @@ exports.parseSmellsSummary = parseSmellsSummary;
 /***/ }),
 
 /***/ 665:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.validateSmellsLimit = void 0;
+const core = __importStar(__nccwpck_require__(186));
 const smells_limits_1 = __nccwpck_require__(267);
 const validateSmellsLimit = (smellsSummaryFile, smellLimitsFile) => {
     const foundSmells = JSON.parse(smellsSummaryFile);
+    core.debug(`Found Smells: ${foundSmells}`);
     if (foundSmells.length === 0) {
         return [];
     }
     const existingSmellsMap = foundSmells.reduce((prev, { granularity, smells }) => (Object.assign(Object.assign({}, prev), { [granularity]: smells.reduce((previous, { smell, instances }) => (Object.assign(Object.assign({}, previous), { [smell]: instances })), {}) })), {});
+    core.debug(`Smells Map: ${existingSmellsMap}`);
     const limitSmellMap = (0, smells_limits_1.parseSmellLimits)(smellLimitsFile);
+    core.debug(`Smells limit map: ${limitSmellMap}`);
     return limitSmellMap.reduce((prev, { granularity, limits }) => {
         const limitedSmells = Object.keys(limits);
         const surpassed = limitedSmells.filter(smell => existingSmellsMap[granularity][smell] > limits[smell]);
