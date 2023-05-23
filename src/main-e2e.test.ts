@@ -4,6 +4,7 @@ import smellsJson from './testHelpers/drtools-summary-smells.json'
 import metricsJson from './testHelpers/drtools-metric-summary.json'
 import coocurrencesJson from './testHelpers/drtools-cooccurrences-smells.json'
 import smellsLimitsJson from './testHelpers/smells-limits.json'
+import { output } from './testHelpers/final.output'
 import { setOutput, setFailed } from '@actions/core'
 
 jest.mock('fs/promises', () => ({
@@ -29,13 +30,14 @@ jest.mock('fs', () => ({
 jest.mock('@actions/core', () => ({
   getInput: () => 'basePath',
   setOutput: jest.fn(),
-  setFailed: jest.fn()
+  setFailed: jest.fn(),
+  debug: jest.fn()
 }))
 
 describe('Action', () => {
   it('should pass and write to PR', async () => {
     await run()
-    expect(setOutput).toHaveBeenCalled()
+    expect((setOutput as jest.Mock).mock.calls[0][1]).toBe(output)
   })
 
   it('if there are no limits, should set output but not fail message', async () => {

@@ -22,6 +22,8 @@ export const parseSmellsSummary = (smellsSummaryFile: string): string => {
   const smellsSummary: AnalysisBlock[] = JSON.parse(smellsSummaryFile)
 
   return smellsSummary
-    .map(({ granularity, smells }) => `# ${granularity}\n${parseSmell(smells)}`)
+    .map(
+      ({ granularity, smells }) => `### ${granularity}\n${parseSmell(smells)}`
+    )
     .join('')
 }

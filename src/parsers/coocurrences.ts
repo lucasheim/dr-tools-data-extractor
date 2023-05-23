@@ -24,6 +24,8 @@ export const parseCooccurrencesSummary = (coocurrenceFile: string): string => {
   const coocurrences: CoOcurrencesCategorized[] = JSON.parse(coocurrenceFile)
 
   return coocurrences
-    .map(({ category, data }) => `# ${category}\n${parseCooccurrences(data)}\n`)
+    .map(
+      ({ category, data }) => `### ${category}\n${parseCooccurrences(data)}\n`
+    )
     .join('')
 }

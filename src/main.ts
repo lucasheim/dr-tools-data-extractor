@@ -6,6 +6,7 @@ import { parseSmellsSummary } from './parsers/smells-summary'
 import { parseMetricSummary } from './parsers/metric-summary'
 import { parseCooccurrencesSummary } from './parsers/coocurrences'
 import { validateSmellsLimit } from './validations/smells-validation'
+import { outputTemplate } from './main.output'
 
 enum AnalysisFiles {
   SmellsSummary,
@@ -36,8 +37,6 @@ const getDirectories = async (source: string): Promise<string[]> =>
 
 export async function run(): Promise<void> {
   try {
-    console.log('test')
-
     const baseFolder = core.getInput('basePath')
 
     const [directoryName] = await getDirectories(`${baseFolder}/analysis/`)
@@ -110,11 +109,11 @@ export async function run(): Promise<void> {
       }
     }
 
-    const pullRequestOutput = [
+    const pullRequestOutput = outputTemplate(
       metricsSummary,
       smellsSummary,
       coocurrences
-    ].join('/n')
+    )
 
     core.setOutput('prtext', pullRequestOutput)
   } catch (error) {
