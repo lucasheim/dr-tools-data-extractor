@@ -99,6 +99,8 @@ export async function run(): Promise<void> {
 
       const smellLimits = readFileSync(smellsLimitPath, 'utf-8')
 
+      core.debug(`Limits content: ${smellLimits}`)
+
       const violations = validateSmellsLimit(smellsSummaryFile, smellLimits)
 
       core.debug(`Violations: ${violations}`)

@@ -1,3 +1,4 @@
+import * as core from '@actions/core'
 import { parseSmellLimits } from '../parsers/smells-limits'
 import { AnalysisBlock } from '../parsers/smells-summary'
 
@@ -13,6 +14,9 @@ export const validateSmellsLimit = (
   smellLimitsFile: string
 ): LimitError[] => {
   const foundSmells = JSON.parse(smellsSummaryFile) as AnalysisBlock[]
+
+  core.debug(`Found Smells: ${foundSmells}`)
+
   if (foundSmells.length === 0) {
     return []
   }
@@ -32,7 +36,12 @@ export const validateSmellsLimit = (
     {}
   )
 
+  core.debug(`Smells Map: ${existingSmellsMap}`)
+
   const limitSmellMap = parseSmellLimits(smellLimitsFile)
+
+  core.debug(`Smells limit map: ${limitSmellMap}`)
+
   return limitSmellMap.reduce((prev, { granularity, limits }) => {
     const limitedSmells = Object.keys(limits)
     const surpassed = limitedSmells.filter(
