@@ -1,11 +1,11 @@
 import * as core from '@actions/core'
 import { readdir } from 'fs/promises'
 import path from 'path'
-import { existsSync, readFileSync } from 'fs'
+import { readFileSync } from 'fs'
 import { parseSmellsSummary } from './parsers/smells-summary'
 import { parseMetricSummary } from './parsers/metric-summary'
 import { parseCooccurrencesSummary } from './parsers/coocurrences'
-import { validateSmellsLimit } from './validations/smells-validation'
+// import { validateSmellsLimit } from './validations/smells-validation'
 
 enum AnalysisFiles {
   SmellsSummary,
@@ -36,6 +36,8 @@ const getDirectories = async (source: string): Promise<string[]> =>
 
 export async function run(): Promise<void> {
   try {
+    console.log('test')
+
     const baseFolder = core.getInput('basePath')
 
     const [directoryName] = await getDirectories(`${baseFolder}/analysis/`)
@@ -92,19 +94,19 @@ export async function run(): Promise<void> {
 
     core.debug(`Limits Path: ${smellsLimitPath}`)
 
-    if (existsSync(smellsLimitPath)) {
-      core.debug('Exists limits')
+    // if (existsSync(smellsLimitPath)) {
+    //   core.debug('Exists limits')
 
-      const smellLimits = readFileSync(smellsLimitPath, 'utf-8')
+    //   const smellLimits = readFileSync(smellsLimitPath, 'utf-8')
 
-      const violations = validateSmellsLimit(smellsSummaryFile, smellLimits)
+    //   const violations = validateSmellsLimit(smellsSummaryFile, smellLimits)
 
-      core.debug(`Violations: ${violations}`)
+    //   core.debug(`Violations: ${violations}`)
 
-      if (violations) {
-        core.setFailed(JSON.stringify(violations))
-      }
-    }
+    //   if (violations) {
+    //     core.setFailed(JSON.stringify(violations))
+    //   }
+    // }
 
     const pullRequestOutput = [
       metricsSummary,
@@ -115,7 +117,7 @@ export async function run(): Promise<void> {
     core.setOutput('prtext', pullRequestOutput)
   } catch (error) {
     console.log(error)
-    if (error instanceof Error) core.setFailed(error.message)
+    if (error instanceof Error) core.setFailed(error)
   }
 }
 
