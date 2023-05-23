@@ -80,6 +80,7 @@ export async function run(): Promise<void> {
 
     core.setOutput('prtext', pullRequestOutput)
   } catch (error) {
+    console.log(error)
     if (error instanceof Error) core.setFailed(error.message)
   }
 }
