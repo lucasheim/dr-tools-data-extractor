@@ -20,7 +20,7 @@ const pathMap: { [key in AnalysisFiles]: (basePath: string) => string } = {
   [AnalysisFiles.MetricsSummary]: (basePath: string) =>
     `${basePath}/metrics/drtools-metric-summary.json`,
   [AnalysisFiles.CoOcurrencesSmells]: (basePath: string) =>
-    `${basePath}/metrics/drtools-cooccurrences-smells.json`,
+    `${basePath}/smells/drtools-cooccurrences-smells.json`,
   [AnalysisFiles.SmellLimits]: (basePath: string) =>
     `${basePath}/smells-limits.json`
 }
