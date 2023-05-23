@@ -42,28 +42,61 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.run = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const promises_1 = __nccwpck_require__(292);
 const path_1 = __importDefault(__nccwpck_require__(17));
 const fs_1 = __nccwpck_require__(147);
+const smells_summary_1 = __nccwpck_require__(575);
+const metric_summary_1 = __nccwpck_require__(615);
+const coocurrences_1 = __nccwpck_require__(693);
+const smells_validation_1 = __nccwpck_require__(665);
+var AnalysisFiles;
+(function (AnalysisFiles) {
+    AnalysisFiles[AnalysisFiles["SmellsSummary"] = 0] = "SmellsSummary";
+    AnalysisFiles[AnalysisFiles["MetricsSummary"] = 1] = "MetricsSummary";
+    AnalysisFiles[AnalysisFiles["CoOcurrencesSmells"] = 2] = "CoOcurrencesSmells";
+    AnalysisFiles[AnalysisFiles["SmellLimits"] = 3] = "SmellLimits";
+})(AnalysisFiles || (AnalysisFiles = {}));
+const pathMap = {
+    [AnalysisFiles.SmellsSummary]: (basePath) => `${basePath}/smells/drtools-summary-smells.json`,
+    [AnalysisFiles.MetricsSummary]: (basePath) => `${basePath}/metrics/drtools-metric-summary.json`,
+    [AnalysisFiles.CoOcurrencesSmells]: (basePath) => `${basePath}/metrics/drtools-cooccurrences-smells.json`,
+    [AnalysisFiles.SmellLimits]: (basePath) => `${basePath}/smells-limits.json`
+};
+const getDirectories = (source) => __awaiter(void 0, void 0, void 0, function* () {
+    return (yield (0, promises_1.readdir)(path_1.default.resolve(process.cwd(), source), {
+        withFileTypes: true
+    }))
+        .filter(file => file.isDirectory())
+        .map(dir => dir.name);
+});
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const getDirectories = (source) => __awaiter(this, void 0, void 0, function* () {
-                return (yield (0, promises_1.readdir)(path_1.default.resolve(process.cwd(), source), {
-                    withFileTypes: true
-                }))
-                    .filter(dirent => dirent.isDirectory())
-                    .map(dirent => dirent.name);
-            });
-            const [directoryName] = yield getDirectories('./spring-boot-project/spring-boot/.drtools/analysis/');
-            const smellsSummaryFile = (0, fs_1.readFileSync)(`./spring-boot-project/spring-boot/.drtools/analysis/${directoryName}/smells/drtools-summary-smells.json`, 'utf-8');
-            const smellsSummary = JSON.parse(smellsSummaryFile);
-            const formatSmells = (smells) => {
-                return smells.map(({ smell, instances, perc_instances }) => `*${smell}* - ${instances} instances - ${perc_instances}\n`);
-            };
-            const text = smellsSummary.map(({ granularity, smells }) => `# ${granularity}\n${formatSmells(smells)}`);
-            core.setOutput('prtext', text.join(''));
+            const baseFolder = core.getInput('basePath');
+            const [directoryName] = yield getDirectories(`${baseFolder}/analysis/`);
+            const baseAnalysisPath = `${baseFolder}/analysis/${directoryName}`;
+            const smellsSummaryFile = (0, fs_1.readFileSync)(pathMap[AnalysisFiles.SmellsSummary](baseAnalysisPath), 'utf-8');
+            const smellsSummary = (0, smells_summary_1.parseSmellsSummary)(smellsSummaryFile);
+            const metricsSummaryFile = (0, fs_1.readFileSync)(pathMap[AnalysisFiles.MetricsSummary](baseAnalysisPath), 'utf-8');
+            const metricsSummary = (0, metric_summary_1.parseMetricSummary)(metricsSummaryFile);
+            const coocurrencesFile = (0, fs_1.readFileSync)(pathMap[AnalysisFiles.CoOcurrencesSmells](baseAnalysisPath), 'utf-8');
+            const coocurrences = (0, coocurrences_1.parseCooccurrencesSummary)(coocurrencesFile);
+            const smellsLimitPath = pathMap[AnalysisFiles.SmellLimits](baseAnalysisPath);
+            if ((0, fs_1.existsSync)(smellsLimitPath)) {
+                const smellLimits = (0, fs_1.readFileSync)(smellsLimitPath, 'utf-8');
+                const violations = (0, smells_validation_1.validateSmellsLimit)(smellsSummaryFile, smellLimits);
+                if (violations) {
+                    core.setFailed(JSON.stringify(violations));
+                }
+            }
+            const pullRequestOutput = [
+                metricsSummary,
+                smellsSummary,
+                coocurrences
+            ].join('/n');
+            core.setOutput('prtext', pullRequestOutput);
         }
         catch (error) {
             if (error instanceof Error)
@@ -71,7 +104,129 @@ function run() {
         }
     });
 }
+exports.run = run;
 run();
+
+
+/***/ }),
+
+/***/ 693:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseCooccurrencesSummary = void 0;
+const parseCooccurrences = (coocurrences) => {
+    return coocurrences
+        .map(({ description, instances, percentual, impacts_on }) => `**${description}** - ${instances} instances - ${percentual}\nImpacts on: ${impacts_on}`)
+        .join('\n\n');
+};
+const parseCooccurrencesSummary = (coocurrenceFile) => {
+    const coocurrences = JSON.parse(coocurrenceFile);
+    return coocurrences
+        .map(({ category, data }) => `# ${category}\n${parseCooccurrences(data)}\n`)
+        .join('');
+};
+exports.parseCooccurrencesSummary = parseCooccurrencesSummary;
+
+
+/***/ }),
+
+/***/ 615:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseMetricSummary = void 0;
+const fromSnakeCaseToCapitalized = (text) => {
+    return text
+        .replace(/_/g, ' ')
+        .split(' ')
+        .map(word => [word.charAt(0).toUpperCase(), ...word.slice(1)].join(''))
+        .join(' ');
+};
+const parseMetricSummary = (metricSummaryFile) => {
+    const metricsSummary = JSON.parse(metricSummaryFile);
+    return metricsSummary
+        .map(({ description, value }) => `### ${fromSnakeCaseToCapitalized(description)} - ${value}\n`)
+        .join('');
+};
+exports.parseMetricSummary = parseMetricSummary;
+
+
+/***/ }),
+
+/***/ 267:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseSmellLimits = void 0;
+const parseSmellLimits = (smellLimitsFile) => {
+    const smellLimits = JSON.parse(smellLimitsFile);
+    return smellLimits;
+};
+exports.parseSmellLimits = parseSmellLimits;
+
+
+/***/ }),
+
+/***/ 575:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseSmellsSummary = void 0;
+const parseSmell = (smells) => {
+    return smells
+        .map(({ smell, instances, perc_instances }) => `**${smell}** - ${instances} instances - ${perc_instances}\n`)
+        .join('');
+};
+const parseSmellsSummary = (smellsSummaryFile) => {
+    const smellsSummary = JSON.parse(smellsSummaryFile);
+    return smellsSummary
+        .map(({ granularity, smells }) => `# ${granularity}\n${parseSmell(smells)}`)
+        .join('');
+};
+exports.parseSmellsSummary = parseSmellsSummary;
+
+
+/***/ }),
+
+/***/ 665:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.validateSmellsLimit = void 0;
+const smells_limits_1 = __nccwpck_require__(267);
+const validateSmellsLimit = (smellsSummaryFile, smellLimitsFile) => {
+    const foundSmells = JSON.parse(smellsSummaryFile);
+    if (foundSmells.length === 0) {
+        return [];
+    }
+    const existingSmellsMap = foundSmells.reduce((prev, { granularity, smells }) => (Object.assign(Object.assign({}, prev), { [granularity]: smells.reduce((previous, { smell, instances }) => (Object.assign(Object.assign({}, previous), { [smell]: instances })), {}) })), {});
+    const limitSmellMap = (0, smells_limits_1.parseSmellLimits)(smellLimitsFile);
+    return limitSmellMap.reduce((prev, { granularity, limits }) => {
+        const limitedSmells = Object.keys(limits);
+        const surpassed = limitedSmells.filter(smell => existingSmellsMap[granularity][smell] > limits[smell]);
+        return [
+            ...prev,
+            ...surpassed.map(sm => ({
+                granularity,
+                smell: sm,
+                maximumExpected: limits[sm],
+                found: existingSmellsMap[granularity][sm]
+            }))
+        ];
+    }, []);
+};
+exports.validateSmellsLimit = validateSmellsLimit;
 
 
 /***/ }),
