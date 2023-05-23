@@ -51,6 +51,7 @@ const smells_summary_1 = __nccwpck_require__(575);
 const metric_summary_1 = __nccwpck_require__(615);
 const coocurrences_1 = __nccwpck_require__(693);
 const smells_validation_1 = __nccwpck_require__(665);
+const main_output_1 = __nccwpck_require__(349);
 var AnalysisFiles;
 (function (AnalysisFiles) {
     AnalysisFiles[AnalysisFiles["SmellsSummary"] = 0] = "SmellsSummary";
@@ -74,7 +75,6 @@ const getDirectories = (source) => __awaiter(void 0, void 0, void 0, function* (
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log('test');
             const baseFolder = core.getInput('basePath');
             const [directoryName] = yield getDirectories(`${baseFolder}/analysis/`);
             core.debug(`Directory name: ${directoryName}`);
@@ -104,11 +104,7 @@ function run() {
                     core.setFailed(JSON.stringify(violations));
                 }
             }
-            const pullRequestOutput = [
-                metricsSummary,
-                smellsSummary,
-                coocurrences
-            ].join('/n');
+            const pullRequestOutput = (0, main_output_1.outputTemplate)(metricsSummary, smellsSummary, coocurrences);
             core.setOutput('prtext', pullRequestOutput);
         }
         catch (error) {
@@ -120,6 +116,28 @@ function run() {
 }
 exports.run = run;
 run();
+
+
+/***/ }),
+
+/***/ 349:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.outputTemplate = void 0;
+const outputTemplate = (metricsSummary, smellsSummary, coocurrences) => `# DR-Tools Diagnosis
+
+## General metrics
+${metricsSummary}
+
+## Smells
+${smellsSummary}
+
+## Coocurrences
+${coocurrences}`;
+exports.outputTemplate = outputTemplate;
 
 
 /***/ }),
@@ -139,7 +157,7 @@ const parseCooccurrences = (coocurrences) => {
 const parseCooccurrencesSummary = (coocurrenceFile) => {
     const coocurrences = JSON.parse(coocurrenceFile);
     return coocurrences
-        .map(({ category, data }) => `# ${category}\n${parseCooccurrences(data)}\n`)
+        .map(({ category, data }) => `### ${category}\n${parseCooccurrences(data)}\n`)
         .join('');
 };
 exports.parseCooccurrencesSummary = parseCooccurrencesSummary;
@@ -203,7 +221,7 @@ const parseSmell = (smells) => {
 const parseSmellsSummary = (smellsSummaryFile) => {
     const smellsSummary = JSON.parse(smellsSummaryFile);
     return smellsSummary
-        .map(({ granularity, smells }) => `# ${granularity}\n${parseSmell(smells)}`)
+        .map(({ granularity, smells }) => `### ${granularity}\n${parseSmell(smells)}`)
         .join('');
 };
 exports.parseSmellsSummary = parseSmellsSummary;
