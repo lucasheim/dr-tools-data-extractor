@@ -50,7 +50,7 @@ const fs_1 = __nccwpck_require__(147);
 const smells_summary_1 = __nccwpck_require__(575);
 const metric_summary_1 = __nccwpck_require__(615);
 const coocurrences_1 = __nccwpck_require__(693);
-// import { validateSmellsLimit } from './validations/smells-validation'
+const smells_validation_1 = __nccwpck_require__(665);
 var AnalysisFiles;
 (function (AnalysisFiles) {
     AnalysisFiles[AnalysisFiles["SmellsSummary"] = 0] = "SmellsSummary";
@@ -94,15 +94,15 @@ function run() {
             core.debug(`Coocurrences: ${coocurrencesFile}`);
             const smellsLimitPath = pathMap[AnalysisFiles.SmellLimits](baseFolder);
             core.debug(`Limits Path: ${smellsLimitPath}`);
-            // if (existsSync(smellsLimitPath)) {
-            //   core.debug('Exists limits')
-            //   const smellLimits = readFileSync(smellsLimitPath, 'utf-8')
-            //   const violations = validateSmellsLimit(smellsSummaryFile, smellLimits)
-            //   core.debug(`Violations: ${violations}`)
-            //   if (violations) {
-            //     core.setFailed(JSON.stringify(violations))
-            //   }
-            // }
+            if ((0, fs_1.existsSync)(smellsLimitPath)) {
+                core.debug('Exists limits');
+                const smellLimits = (0, fs_1.readFileSync)(smellsLimitPath, 'utf-8');
+                const violations = (0, smells_validation_1.validateSmellsLimit)(smellsSummaryFile, smellLimits);
+                core.debug(`Violations: ${violations}`);
+                if (violations) {
+                    core.setFailed(JSON.stringify(violations));
+                }
+            }
             const pullRequestOutput = [
                 metricsSummary,
                 smellsSummary,
@@ -171,6 +171,22 @@ exports.parseMetricSummary = parseMetricSummary;
 
 /***/ }),
 
+/***/ 267:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseSmellLimits = void 0;
+const parseSmellLimits = (smellLimitsFile) => {
+    const smellLimits = JSON.parse(smellLimitsFile);
+    return smellLimits;
+};
+exports.parseSmellLimits = parseSmellLimits;
+
+
+/***/ }),
+
 /***/ 575:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -190,6 +206,40 @@ const parseSmellsSummary = (smellsSummaryFile) => {
         .join('');
 };
 exports.parseSmellsSummary = parseSmellsSummary;
+
+
+/***/ }),
+
+/***/ 665:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.validateSmellsLimit = void 0;
+const smells_limits_1 = __nccwpck_require__(267);
+const validateSmellsLimit = (smellsSummaryFile, smellLimitsFile) => {
+    const foundSmells = JSON.parse(smellsSummaryFile);
+    if (foundSmells.length === 0) {
+        return [];
+    }
+    const existingSmellsMap = foundSmells.reduce((prev, { granularity, smells }) => (Object.assign(Object.assign({}, prev), { [granularity]: smells.reduce((previous, { smell, instances }) => (Object.assign(Object.assign({}, previous), { [smell]: instances })), {}) })), {});
+    const limitSmellMap = (0, smells_limits_1.parseSmellLimits)(smellLimitsFile);
+    return limitSmellMap.reduce((prev, { granularity, limits }) => {
+        const limitedSmells = Object.keys(limits);
+        const surpassed = limitedSmells.filter(smell => existingSmellsMap[granularity][smell] > limits[smell]);
+        return [
+            ...prev,
+            ...surpassed.map(sm => ({
+                granularity,
+                smell: sm,
+                maximumExpected: limits[sm],
+                found: existingSmellsMap[granularity][sm]
+            }))
+        ];
+    }, []);
+};
+exports.validateSmellsLimit = validateSmellsLimit;
 
 
 /***/ }),
