@@ -40,7 +40,17 @@ export async function run(): Promise<void> {
 
     const [directoryName] = await getDirectories(`${baseFolder}/analysis/`)
 
+    core.debug(`Directory name: ${directoryName}`)
+
     const baseAnalysisPath = `${baseFolder}/analysis/${directoryName}`
+
+    core.debug(`Analysis Path: ${baseAnalysisPath}`)
+
+    core.debug(
+      `Smells Summary Path: ${pathMap[AnalysisFiles.SmellsSummary](
+        baseAnalysisPath
+      )}`
+    )
 
     const smellsSummaryFile = readFileSync(
       pathMap[AnalysisFiles.SmellsSummary](baseAnalysisPath),
@@ -48,11 +58,27 @@ export async function run(): Promise<void> {
     )
     const smellsSummary = parseSmellsSummary(smellsSummaryFile)
 
+    core.debug(`Smells Summary: ${smellsSummaryFile}`)
+
+    core.debug(
+      `Metrics Summary Path: ${pathMap[AnalysisFiles.MetricsSummary](
+        baseAnalysisPath
+      )}`
+    )
+
     const metricsSummaryFile = readFileSync(
       pathMap[AnalysisFiles.MetricsSummary](baseAnalysisPath),
       'utf-8'
     )
     const metricsSummary = parseMetricSummary(metricsSummaryFile)
+
+    core.debug(`Metrics Summary: ${metricsSummaryFile}`)
+
+    core.debug(
+      `Coocurrences Path: ${pathMap[AnalysisFiles.CoOcurrencesSmells](
+        baseAnalysisPath
+      )}`
+    )
 
     const coocurrencesFile = readFileSync(
       pathMap[AnalysisFiles.CoOcurrencesSmells](baseAnalysisPath),
@@ -60,12 +86,20 @@ export async function run(): Promise<void> {
     )
     const coocurrences = parseCooccurrencesSummary(coocurrencesFile)
 
+    core.debug(`Coocurrences: ${coocurrencesFile}`)
+
     const smellsLimitPath = pathMap[AnalysisFiles.SmellLimits](baseFolder)
 
+    core.debug(`Limits Path: ${smellsLimitPath}`)
+
     if (existsSync(smellsLimitPath)) {
+      core.debug('Exists limits')
+
       const smellLimits = readFileSync(smellsLimitPath, 'utf-8')
 
       const violations = validateSmellsLimit(smellsSummaryFile, smellLimits)
+
+      core.debug(`Violations: ${violations}`)
 
       if (violations) {
         core.setFailed(JSON.stringify(violations))
