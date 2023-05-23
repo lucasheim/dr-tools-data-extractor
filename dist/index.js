@@ -61,7 +61,7 @@ var AnalysisFiles;
 const pathMap = {
     [AnalysisFiles.SmellsSummary]: (basePath) => `${basePath}/smells/drtools-summary-smells.json`,
     [AnalysisFiles.MetricsSummary]: (basePath) => `${basePath}/metrics/drtools-metric-summary.json`,
-    [AnalysisFiles.CoOcurrencesSmells]: (basePath) => `${basePath}/metrics/drtools-cooccurrences-smells.json`,
+    [AnalysisFiles.CoOcurrencesSmells]: (basePath) => `${basePath}/smells/drtools-cooccurrences-smells.json`,
     [AnalysisFiles.SmellLimits]: (basePath) => `${basePath}/smells-limits.json`
 };
 const getDirectories = (source) => __awaiter(void 0, void 0, void 0, function* () {
@@ -83,7 +83,7 @@ function run() {
             const metricsSummary = (0, metric_summary_1.parseMetricSummary)(metricsSummaryFile);
             const coocurrencesFile = (0, fs_1.readFileSync)(pathMap[AnalysisFiles.CoOcurrencesSmells](baseAnalysisPath), 'utf-8');
             const coocurrences = (0, coocurrences_1.parseCooccurrencesSummary)(coocurrencesFile);
-            const smellsLimitPath = pathMap[AnalysisFiles.SmellLimits](baseAnalysisPath);
+            const smellsLimitPath = pathMap[AnalysisFiles.SmellLimits](baseFolder);
             if ((0, fs_1.existsSync)(smellsLimitPath)) {
                 const smellLimits = (0, fs_1.readFileSync)(smellsLimitPath, 'utf-8');
                 const violations = (0, smells_validation_1.validateSmellsLimit)(smellsSummaryFile, smellLimits);
