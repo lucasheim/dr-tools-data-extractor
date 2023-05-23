@@ -60,7 +60,7 @@ export async function run(): Promise<void> {
     )
     const coocurrences = parseCooccurrencesSummary(coocurrencesFile)
 
-    const smellsLimitPath = pathMap[AnalysisFiles.SmellLimits](baseAnalysisPath)
+    const smellsLimitPath = pathMap[AnalysisFiles.SmellLimits](baseFolder)
 
     if (existsSync(smellsLimitPath)) {
       const smellLimits = readFileSync(smellsLimitPath, 'utf-8')

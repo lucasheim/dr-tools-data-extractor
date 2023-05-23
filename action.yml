@@ -1,6 +1,9 @@
 name: 'Extract DR Tools Data'
 description: 'Provide a description here'
 author: 'Your name or organization here'
+inputs:
+  basePath:
+    description: 'Path to your project .drtools folder'
 outputs:
   prtext:
     description: 'Text that will be pasted on the Pull Request'
