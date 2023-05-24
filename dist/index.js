@@ -127,15 +127,15 @@ run();
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.outputTemplate = void 0;
-const outputTemplate = (metricsSummary, smellsSummary, coocurrences) => `# DR-Tools Diagnosis
+const outputTemplate = (metricsSummary, smellsSummary, coocurrences) => `# :man-health-worker: DR-Tools Diagnosis :woman-health-worker:
 
-## General metrics
+## General metrics :bar_chart:
 ${metricsSummary}
 
-## Smells
+## Smells :wastebasket:
 ${smellsSummary}
 
-## Coocurrences
+## Coocurrences :link:
 ${coocurrences}`;
 exports.outputTemplate = outputTemplate;
 

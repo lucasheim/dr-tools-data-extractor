@@ -1,6 +1,6 @@
-export const output = `# DR-Tools Diagnosis
+export const output = `# :man-health-worker: DR-Tools Diagnosis :woman-health-worker:
 
-## General metrics
+## General metrics :bar_chart:
 **Total Namespaces** - 109
 **Total Types** - 1060
 **Total Sloc** - 88702
@@ -8,7 +8,7 @@ export const output = `# DR-Tools Diagnosis
 **Total Cyclo** - 22109
 
 
-## Smells
+## Smells :wastebasket:
 ### NAMESPACE
 **Too Large Package/Subsystem** - 11 instances - 100.00%
 ### TYPE
@@ -26,7 +26,7 @@ export const output = `# DR-Tools Diagnosis
 **Long Parameter List** - 34 instances - 1.81%
 
 
-## Coocurrences
+## Coocurrences :link:
 ### TYPE
 **Complex and low cohesion structures in types** - 36 instances - 16.67%
 Impacts on: Cohesion, Complexity
