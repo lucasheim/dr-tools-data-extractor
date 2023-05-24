@@ -1,4 +1,4 @@
-export const output = `# :man-health-worker: DR-Tools Diagnosis :woman-health-worker:
+export const output = `# :man_health_worker: DR-Tools Diagnosis :woman_health_worker:
 
 ## General metrics :bar_chart:
 **Total Namespaces** - 109
