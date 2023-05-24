@@ -100,7 +100,7 @@ function run() {
                 core.debug(`Limits content: ${smellLimits}`);
                 const violations = (0, smells_validation_1.validateSmellsLimit)(smellsSummaryFile, smellLimits);
                 core.debug(`Violations: ${violations}`);
-                if (violations) {
+                if (violations.length) {
                     core.setFailed(JSON.stringify(violations));
                 }
             }

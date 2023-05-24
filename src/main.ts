@@ -104,7 +104,7 @@ export async function run(): Promise<void> {
 
       core.debug(`Violations: ${violations}`)
 
-      if (violations) {
+      if (violations.length) {
         core.setFailed(JSON.stringify(violations))
       }
     }
