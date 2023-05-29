@@ -2,17 +2,21 @@ import * as core from '@actions/core'
 import { readdir } from 'fs/promises'
 import path from 'path'
 import { existsSync, readFileSync } from 'fs'
-import { parseSmellsSummary } from './parsers/smells-summary'
-import { parseMetricSummary } from './parsers/metric-summary'
-import { parseCooccurrencesSummary } from './parsers/coocurrences'
 import { validateSmellsLimit } from './validations/smells-validation'
 import { outputTemplate } from './main.output'
+import { parseMetricSummary } from './parsers/metric-summary/metric-summary'
+import { parseCooccurrencesSummary } from './parsers/coocurrences/coocurrences'
+import { parseSmellsSummary } from './parsers/smells-summary/smells-summary'
+import { parseRanking } from './parsers/ranking/ranking'
 
 enum AnalysisFiles {
   SmellsSummary,
   MetricsSummary,
   CoOcurrencesSmells,
-  SmellLimits
+  SmellLimits,
+  NamespaceRanking,
+  TypeRanking,
+  MethodRanking
 }
 
 const pathMap: { [key in AnalysisFiles]: (basePath: string) => string } = {
@@ -23,7 +27,13 @@ const pathMap: { [key in AnalysisFiles]: (basePath: string) => string } = {
   [AnalysisFiles.CoOcurrencesSmells]: (basePath: string) =>
     `${basePath}/smells/drtools-cooccurrences-smells.json`,
   [AnalysisFiles.SmellLimits]: (basePath: string) =>
-    `${basePath}/smells-limits.json`
+    `${basePath}/smells-limits.json`,
+  [AnalysisFiles.NamespaceRanking]: (basePath: string) =>
+    `${basePath}/ranking/drtools-cdi-namespaces.json`,
+  [AnalysisFiles.TypeRanking]: (basePath: string) =>
+    `${basePath}/ranking/drtools-cdi-types.json`,
+  [AnalysisFiles.MethodRanking]: (basePath: string) =>
+    `${basePath}/ranking/drtools-cdi-methods.json`
 }
 
 const getDirectories = async (source: string): Promise<string[]> =>
@@ -89,6 +99,27 @@ export async function run(): Promise<void> {
 
     core.debug(`Coocurrences: ${coocurrencesFile}`)
 
+    const namespaceRankingFile = readFileSync(
+      pathMap[AnalysisFiles.NamespaceRanking](baseAnalysisPath),
+      'utf-8'
+    )
+
+    const typeRankingFile = readFileSync(
+      pathMap[AnalysisFiles.TypeRanking](baseAnalysisPath),
+      'utf-8'
+    )
+
+    const methodRankingFile = readFileSync(
+      pathMap[AnalysisFiles.MethodRanking](baseAnalysisPath),
+      'utf-8'
+    )
+
+    const ranking = parseRanking(
+      namespaceRankingFile,
+      typeRankingFile,
+      methodRankingFile
+    )
+
     const smellsLimitPath = pathMap[AnalysisFiles.SmellLimits](baseFolder)
 
     core.debug(`Limits Path: ${smellsLimitPath}`)
@@ -112,7 +143,8 @@ export async function run(): Promise<void> {
     const pullRequestOutput = outputTemplate(
       metricsSummary,
       smellsSummary,
-      coocurrences
+      coocurrences,
+      ranking
     )
 
     core.setOutput('prtext', pullRequestOutput)

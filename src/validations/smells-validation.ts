@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import { parseSmellLimits } from '../parsers/smells-limits'
-import { AnalysisBlock } from '../parsers/smells-summary'
+import { SmellsSummary } from '../parsers/smells-summary/smells-summary.types'
 
 interface LimitError {
   smell: string
@@ -13,7 +13,7 @@ export const validateSmellsLimit = (
   smellsSummaryFile: string,
   smellLimitsFile: string
 ): LimitError[] => {
-  const foundSmells = JSON.parse(smellsSummaryFile) as AnalysisBlock[]
+  const foundSmells = JSON.parse(smellsSummaryFile) as SmellsSummary[]
 
   core.debug(`Found Smells: ${foundSmells}`)
 

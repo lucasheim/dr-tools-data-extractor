@@ -1,6 +1,8 @@
-export const output = `**Total Namespaces** - 109
-**Total Types** - 1060
-**Total Sloc** - 88702
-**Total Methods** - 9816
-**Total Cyclo** - 22109
+export const output = `| Description     | Total      |  Average      | Median        | Standard Deviation    |
+|:----------------|-----------:|--------------:|--------------:|----------------------:|
+| Namespaces | 109 | 100  | - | - |
+| Types | 1060 | 9 (types/namespaces) | 5.00 | 14.79 |
+| SLOC | 88702 | 83 (SLOC/types) | 44.00 | 140.20 |
+| Methods | 9816 | 9 (methods/types) | 5.00 | 4.82 |
+| CYCLO | 22109 | 20 (CYCLO/types) | - | - |
 `

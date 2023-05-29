@@ -1,7 +1,7 @@
 import { parseMetricSummary } from './metric-summary'
-import { output } from '../testHelpers/drtools-metric-summary.output'
+import { output } from '../../testHelpers/drtools-metric-summary.output'
 
-const summaryMetrics = import('../testHelpers/drtools-metric-summary.json')
+const summaryMetrics = import('../../testHelpers/drtools-metric-summary.json')
 
 describe('Metric Summary Parser', () => {
   it('should parse', async () => {

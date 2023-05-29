@@ -3,6 +3,9 @@ import { Dirent, existsSync } from 'fs'
 import smellsJson from './testHelpers/drtools-summary-smells.json'
 import metricsJson from './testHelpers/drtools-metric-summary.json'
 import coocurrencesJson from './testHelpers/drtools-cooccurrences-smells.json'
+import namespacesRankingJson from './testHelpers/drtools-cdi-namespaces.json'
+import typesRankingJson from './testHelpers/drtools-cdi-types.json'
+import methodsRankingJson from './testHelpers/drtools-cdi-methods.json'
 import smellsLimitsJson from './testHelpers/smells-limits.json'
 import { output } from './testHelpers/final.output'
 import { setOutput, setFailed } from '@actions/core'
@@ -20,6 +23,12 @@ jest.mock('fs', () => ({
       return JSON.stringify(metricsJson)
     } else if (path.includes('drtools-cooccurrences-smells')) {
       return JSON.stringify(coocurrencesJson)
+    } else if (path.includes('drtools-cdi-namespaces')) {
+      return JSON.stringify(namespacesRankingJson)
+    } else if (path.includes('drtools-cdi-types')) {
+      return JSON.stringify(typesRankingJson)
+    } else if (path.includes('drtools-cdi-methods')) {
+      return JSON.stringify(methodsRankingJson)
     } else {
       return JSON.stringify(smellsLimitsJson)
     }

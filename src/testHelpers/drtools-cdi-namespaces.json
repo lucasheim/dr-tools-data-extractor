@@ -1,0 +1,90 @@
+[
+  {
+    "namespace": "org.springframework.boot.context.config",
+    "severity": "10.000",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "10.000"
+  },
+  {
+    "namespace": "org.springframework.boot",
+    "severity": "6.946",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "6.946"
+  },
+  {
+    "namespace": "org.springframework.boot.context.properties.source",
+    "severity": "6.143",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "6.143"
+  },
+  {
+    "namespace": "org.springframework.boot.convert",
+    "severity": "6.143",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "6.143"
+  },
+  {
+    "namespace": "org.springframework.boot.context.properties.bind",
+    "severity": "4.054",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "4.054"
+  },
+  {
+    "namespace": "org.springframework.boot.context.properties",
+    "severity": "3.732",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "3.732"
+  },
+  {
+    "namespace": "org.springframework.boot.web.servlet",
+    "severity": "2.125",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "2.125"
+  },
+  {
+    "namespace": "org.springframework.boot.env",
+    "severity": "1.643",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.643"
+  },
+  {
+    "namespace": "org.springframework.boot.web.server",
+    "severity": "1.161",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.161"
+  },
+  {
+    "namespace": "org.springframework.boot.logging.logback",
+    "severity": "1.161",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.161"
+  },
+  {
+    "namespace": "org.springframework.boot.diagnostics.analyzer",
+    "severity": "1.000",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.000"
+  }
+]

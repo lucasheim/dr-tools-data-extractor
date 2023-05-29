@@ -1,8 +1,8 @@
-import { output } from '../testHelpers/drtools-cooccurrences-smells.output'
+import { output } from '../../testHelpers/drtools-cooccurrences-smells.output'
 import { parseCooccurrencesSummary } from './coocurrences'
 
 const coocurrenceSmells = import(
-  '../testHelpers/drtools-cooccurrences-smells.json'
+  '../../testHelpers/drtools-cooccurrences-smells.json'
 )
 
 describe('Coocurrences Parser', () => {

@@ -1,31 +1,19 @@
-export const output = `### TYPE
-**Complex and low cohesion structures in types** - 36 instances - 16.67%
-Impacts on: Cohesion, Complexity
+export const output = `
 
-**Deep hierarchy, big and low cohesion structures in types** - 5 instances - 2.31%
-Impacts on: Complexity, Size
+**Category: Types**
+| Co-Occurrence | # of Instances | % | Impacts on |
+|:----------------|-----------:|-------------:|:---------------|
+| Complex and low cohesion structures in types | 36 | 16.67% | Cohesion, Complexity |
+| Deep hierarchy, big and low cohesion structures in types | 5 | 2.31% | Complexity, Size |
+| Low cohesion and big structures in types | 2 | 0.93% | Cohesion, Size |
+| Complex structures in types | 1 | 0.46% | Complexity, Size |
+| Low cohesion and high coupling structures in types | 1 | 0.46% | Cohesion, Coupling |
 
-**Low cohesion and big structures in types** - 2 instances - 0.93%
-Impacts on: Cohesion, Size
-
-**Complex structures in types** - 1 instances - 0.46%
-Impacts on: Complexity, Size
-
-**Low cohesion and high coupling structures in types** - 1 instances - 0.46%
-Impacts on: Cohesion, Coupling
-### METHOD
-**High complexity structures in methods** - 343 instances - 18.26%
-Impacts on: Complexity
-
-**Structures difficult to maintain in methods** - 17 instances - 0.91%
-Impacts on: Complexity, Size
-
-**Several parameters and complex structures in methods** - 15 instances - 0.80%
-Impacts on: Complexity, Size
-
-**Complex structures in methods** - 12 instances - 0.64%
-Impacts on: Complexity
-
-**Big structures in methods** - 1 instances - 0.05%
-Impacts on: Size
-`
+**Category: Methods**
+| Co-Occurrence | # of Instances | % | Impacts on |
+|:----------------|-----------:|-------------:|:---------------|
+| High complexity structures in methods | 343 | 18.26% | Complexity |
+| Structures difficult to maintain in methods  | 17 | 0.91% | Complexity, Size |
+| Several parameters and complex structures in methods | 15 | 0.80% | Complexity, Size |
+| Complex structures in methods | 12 | 0.64% | Complexity |
+| Big structures in methods | 1 | 0.05% | Size |`

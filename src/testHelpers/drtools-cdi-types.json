@@ -1,0 +1,1730 @@
+[
+  {
+    "type": "org.springframework.boot.SpringApplication",
+    "severity": "8.871",
+    "representativity": "10.000",
+    "quality": "10.000",
+    "intervention": "10.000",
+    "cdi": "88.707"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.ConfigurationPropertiesTests",
+    "severity": "10.000",
+    "representativity": "7.750",
+    "quality": "5.784",
+    "intervention": "6.625",
+    "cdi": "67.196"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.JavaBeanBinderTests",
+    "severity": "5.555",
+    "representativity": "7.750",
+    "quality": "5.784",
+    "intervention": "6.625",
+    "cdi": "37.328"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.server.AbstractServletWebServerFactoryTests",
+    "severity": "4.996",
+    "representativity": "7.750",
+    "quality": "5.784",
+    "intervention": "6.625",
+    "cdi": "33.568"
+  },
+  {
+    "type": "org.springframework.boot.SpringApplicationTests",
+    "severity": "4.306",
+    "representativity": "7.750",
+    "quality": "5.784",
+    "intervention": "6.625",
+    "cdi": "28.933"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.source.ConfigurationPropertyName",
+    "severity": "3.486",
+    "representativity": "7.750",
+    "quality": "8.297",
+    "intervention": "6.625",
+    "cdi": "26.345"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory",
+    "severity": "3.704",
+    "representativity": "7.750",
+    "quality": "5.784",
+    "intervention": "6.625",
+    "cdi": "24.890"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.ValueObjectBinderTests",
+    "severity": "2.602",
+    "representativity": "5.500",
+    "quality": "4.568",
+    "intervention": "4.000",
+    "cdi": "12.199"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.Binder",
+    "severity": "1.980",
+    "representativity": "5.500",
+    "quality": "4.568",
+    "intervention": "4.000",
+    "cdi": "9.282"
+  },
+  {
+    "type": "org.springframework.boot.jdbc.DataSourceBuilder",
+    "severity": "1.919",
+    "representativity": "5.500",
+    "quality": "2.865",
+    "intervention": "4.000",
+    "cdi": "7.911"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.MapBinderTests",
+    "severity": "1.901",
+    "representativity": "5.500",
+    "quality": "2.865",
+    "intervention": "4.000",
+    "cdi": "7.835"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.CollectionBinderTests",
+    "severity": "1.793",
+    "representativity": "5.500",
+    "quality": "2.865",
+    "intervention": "4.000",
+    "cdi": "7.390"
+  },
+  {
+    "type": "org.springframework.boot.jdbc.DataSourceBuilderTests",
+    "severity": "1.749",
+    "representativity": "5.500",
+    "quality": "2.865",
+    "intervention": "4.000",
+    "cdi": "7.210"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory",
+    "severity": "1.745",
+    "representativity": "5.500",
+    "quality": "2.865",
+    "intervention": "4.000",
+    "cdi": "7.194"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataEnvironmentContributors",
+    "severity": "1.511",
+    "representativity": "5.500",
+    "quality": "4.568",
+    "intervention": "4.000",
+    "cdi": "7.086"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataEnvironmentPostProcessorIntegrationTests",
+    "severity": "1.580",
+    "representativity": "3.250",
+    "quality": "3.189",
+    "intervention": "2.125",
+    "cdi": "4.511"
+  },
+  {
+    "type": "org.springframework.boot.web.reactive.server.AbstractReactiveWebServerFactoryTests",
+    "severity": "1.510",
+    "representativity": "3.250",
+    "quality": "3.189",
+    "intervention": "2.125",
+    "cdi": "4.310"
+  },
+  {
+    "type": "org.springframework.boot.env.ConfigTreePropertySource",
+    "severity": "1.239",
+    "representativity": "3.250",
+    "quality": "3.189",
+    "intervention": "2.125",
+    "cdi": "3.538"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.ConfigurationPropertiesBeanFactoryInitializationAotProcessorTests",
+    "severity": "1.397",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.497"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.BindableRuntimeHintsRegistrarTests",
+    "severity": "1.396",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.495"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory",
+    "severity": "1.380",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.455"
+  },
+  {
+    "type": "org.springframework.boot.context.logging.LoggingApplicationListenerTests",
+    "severity": "1.359",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.402"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.BinderTests",
+    "severity": "1.320",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.305"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.validation.ValidationBindHandlerTests",
+    "severity": "1.275",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.192"
+  },
+  {
+    "type": "org.springframework.boot.webservices.client.WebServiceTemplateBuilder",
+    "severity": "1.244",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.115"
+  },
+  {
+    "type": "org.springframework.boot.builder.SpringApplicationBuilder",
+    "severity": "1.241",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.107"
+  },
+  {
+    "type": "org.springframework.boot.web.client.RestTemplateBuilder",
+    "severity": "1.241",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.107"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.server.AbstractServletWebServerFactory",
+    "severity": "1.230",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.078"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataLocationResolversTests",
+    "severity": "1.270",
+    "representativity": "3.250",
+    "quality": "1.892",
+    "intervention": "2.125",
+    "cdi": "3.076"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.JavaBeanBinder",
+    "severity": "1.216",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.044"
+  },
+  {
+    "type": "org.springframework.boot.web.server.MimeMappings",
+    "severity": "1.214",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.040"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.tomcat.TomcatReactiveWebServerFactory",
+    "severity": "1.211",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.031"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.undertow.UndertowWebServer",
+    "severity": "1.211",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.031"
+  },
+  {
+    "type": "org.springframework.boot.logging.DeferredLog",
+    "severity": "1.210",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.029"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.tomcat.TomcatWebServer",
+    "severity": "1.203",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "3.012"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.support.ErrorPageFilter",
+    "severity": "1.195",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.991"
+  },
+  {
+    "type": "org.springframework.boot.logging.logback.SpringBootJoranConfigurator",
+    "severity": "1.186",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.970"
+  },
+  {
+    "type": "org.springframework.boot.util.LambdaSafe",
+    "severity": "1.180",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.954"
+  },
+  {
+    "type": "org.springframework.boot.env.OriginTrackedPropertiesLoader",
+    "severity": "1.172",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.934"
+  },
+  {
+    "type": "org.springframework.boot.diagnostics.analyzer.BindFailureAnalyzerTests",
+    "severity": "1.169",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.927"
+  },
+  {
+    "type": "org.springframework.boot.web.server.AbstractConfigurableWebServerFactory",
+    "severity": "1.165",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.917"
+  },
+  {
+    "type": "org.springframework.boot.sql.init.dependency.DatabaseInitializationDependencyConfigurerTests",
+    "severity": "1.164",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.913"
+  },
+  {
+    "type": "org.springframework.boot.SpringApplicationShutdownHookTests",
+    "severity": "1.160",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.903"
+  },
+  {
+    "type": "org.springframework.boot.context.config.StandardConfigDataLocationResolver",
+    "severity": "1.157",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.897"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext",
+    "severity": "1.157",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.896"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.ValueObjectBinder",
+    "severity": "1.155",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.890"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.handler.NoUnboundElementsBindHandlerTests",
+    "severity": "1.151",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.882"
+  },
+  {
+    "type": "org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer",
+    "severity": "1.147",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.871"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.Bindable",
+    "severity": "1.147",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.870"
+  },
+  {
+    "type": "org.springframework.boot.BeanDefinitionLoader",
+    "severity": "1.142",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.859"
+  },
+  {
+    "type": "org.springframework.boot.rsocket.netty.NettyRSocketServerFactory",
+    "severity": "1.135",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.841"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.ConfigurationPropertiesBinder",
+    "severity": "1.133",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.837"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigData",
+    "severity": "1.130",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.830"
+  },
+  {
+    "type": "org.springframework.boot.info.JavaInfo",
+    "severity": "1.123",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.811"
+  },
+  {
+    "type": "org.springframework.boot.SpringApplicationShutdownHook",
+    "severity": "1.122",
+    "representativity": "3.250",
+    "quality": "2.135",
+    "intervention": "2.125",
+    "cdi": "2.808"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.support.SpringBootServletInitializerTests",
+    "severity": "1.128",
+    "representativity": "3.250",
+    "quality": "1.892",
+    "intervention": "2.125",
+    "cdi": "2.732"
+  },
+  {
+    "type": "org.springframework.boot.web.reactive.error.DefaultErrorAttributesTests",
+    "severity": "1.112",
+    "representativity": "3.250",
+    "quality": "1.892",
+    "intervention": "2.125",
+    "cdi": "2.693"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.source.SpringIterableConfigurationPropertySourceTests",
+    "severity": "1.097",
+    "representativity": "3.250",
+    "quality": "1.892",
+    "intervention": "2.125",
+    "cdi": "2.656"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.WebFilterHandlerTests",
+    "severity": "1.073",
+    "representativity": "3.250",
+    "quality": "1.892",
+    "intervention": "2.125",
+    "cdi": "2.599"
+  },
+  {
+    "type": "org.springframework.boot.jackson.JsonComponentModuleTests",
+    "severity": "1.060",
+    "representativity": "3.250",
+    "quality": "1.892",
+    "intervention": "2.125",
+    "cdi": "2.567"
+  },
+  {
+    "type": "org.springframework.boot.env.OriginTrackedYamlLoader",
+    "severity": "1.052",
+    "representativity": "3.250",
+    "quality": "1.892",
+    "intervention": "2.125",
+    "cdi": "2.547"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.source.ConfigurationPropertyNameTests",
+    "severity": "1.122",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.274"
+  },
+  {
+    "type": "org.springframework.boot.logging.logback.LogbackLoggingSystemTests",
+    "severity": "1.086",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.233"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.ConfigurationPropertiesBeanTests",
+    "severity": "1.082",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.229"
+  },
+  {
+    "type": "org.springframework.boot.web.client.RestTemplateBuilderTests",
+    "severity": "1.075",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.220"
+  },
+  {
+    "type": "org.springframework.boot.logging.log4j2.Log4J2LoggingSystem",
+    "severity": "1.075",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.220"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactoryTests",
+    "severity": "1.072",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.217"
+  },
+  {
+    "type": "org.springframework.boot.web.server.Ssl",
+    "severity": "1.067",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.211"
+  },
+  {
+    "type": "org.springframework.boot.logging.logback.LogbackLoggingSystem",
+    "severity": "1.066",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.210"
+  },
+  {
+    "type": "org.springframework.boot.env.OriginTrackedPropertiesLoaderTests",
+    "severity": "1.061",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.204"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.PropertyMapperTests",
+    "severity": "1.060",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.203"
+  },
+  {
+    "type": "org.springframework.boot.rsocket.netty.NettyRSocketServerFactoryTests",
+    "severity": "1.058",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.201"
+  },
+  {
+    "type": "org.springframework.boot.DefaultBootstrapContextTests",
+    "severity": "1.057",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.200"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactoryTests",
+    "severity": "1.055",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.198"
+  },
+  {
+    "type": "org.springframework.boot.context.logging.LoggingApplicationListener",
+    "severity": "1.054",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.196"
+  },
+  {
+    "type": "org.springframework.boot.util.LambdaSafeTests",
+    "severity": "1.054",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.196"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.context.ServletWebServerApplicationContextTests",
+    "severity": "1.053",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.196"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ProfilesTests",
+    "severity": "1.053",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.196"
+  },
+  {
+    "type": "org.springframework.boot.logging.log4j2.Log4J2LoggingSystemTests",
+    "severity": "1.053",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.196"
+  },
+  {
+    "type": "org.springframework.boot.webservices.client.WebServiceTemplateBuilderTests",
+    "severity": "1.053",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.195"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.support.ErrorPageFilterTests",
+    "severity": "1.052",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.194"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataEnvironmentContributor",
+    "severity": "1.049",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.191"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.BindConverterTests",
+    "severity": "1.048",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.190"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataEnvironmentContributorTests",
+    "severity": "1.047",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.188"
+  },
+  {
+    "type": "org.springframework.boot.builder.SpringApplicationBuilderTests",
+    "severity": "1.047",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.188"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.source.SpringIterableConfigurationPropertySource",
+    "severity": "1.042",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.183"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.DefaultBindConstructorProviderTests",
+    "severity": "1.040",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.181"
+  },
+  {
+    "type": "org.springframework.boot.env.ConfigTreePropertySourceTests",
+    "severity": "1.039",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.180"
+  },
+  {
+    "type": "org.springframework.boot.web.client.ClientHttpRequestFactoriesTests",
+    "severity": "1.039",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.179"
+  },
+  {
+    "type": "org.springframework.boot.convert.DurationStyleTests",
+    "severity": "1.039",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.179"
+  },
+  {
+    "type": "org.springframework.boot.logging.log4j2.ColorConverterTests",
+    "severity": "1.039",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.179"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.PropertyMapper",
+    "severity": "1.039",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.179"
+  },
+  {
+    "type": "org.springframework.boot.json.AbstractJsonParserTests",
+    "severity": "1.038",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.179"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactoryTests",
+    "severity": "1.038",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.178"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.source.SpringConfigurationPropertySourceTests",
+    "severity": "1.038",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.178"
+  },
+  {
+    "type": "org.springframework.boot.cloud.CloudPlatformTests",
+    "severity": "1.037",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.177"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.netty.NettyReactiveWebServerFactoryTests",
+    "severity": "1.037",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.177"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataEnvironmentTests",
+    "severity": "1.037",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.177"
+  },
+  {
+    "type": "org.springframework.boot.origin.OriginTrackedResource",
+    "severity": "1.036",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.176"
+  },
+  {
+    "type": "org.springframework.boot.convert.PeriodStyleTests",
+    "severity": "1.036",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.176"
+  },
+  {
+    "type": "org.springframework.boot.logging.logback.SpringBootJoranConfiguratorTests",
+    "severity": "1.036",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.176"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataLoadersTests",
+    "severity": "1.035",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.175"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.ConfigurationPropertiesBean",
+    "severity": "1.035",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.175"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.jetty.JettyWebServer",
+    "severity": "1.034",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.174"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.ArrayBinderTests",
+    "severity": "1.034",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.174"
+  },
+  {
+    "type": "org.springframework.boot.env.ReflectionEnvironmentPostProcessorsFactoryTests",
+    "severity": "1.033",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.173"
+  },
+  {
+    "type": "org.springframework.boot.diagnostics.analyzer.BeanCurrentlyInCreationFailureAnalyzerTests",
+    "severity": "1.033",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.173"
+  },
+  {
+    "type": "org.springframework.boot.web.server.MimeMappingsTests",
+    "severity": "1.033",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.172"
+  },
+  {
+    "type": "org.springframework.boot.convert.ApplicationConversionService",
+    "severity": "1.033",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.172"
+  },
+  {
+    "type": "org.springframework.boot.security.servlet.ApplicationContextRequestMatcherTests",
+    "severity": "1.032",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.172"
+  },
+  {
+    "type": "org.springframework.boot.logging.logback.ColorConverterTests",
+    "severity": "1.032",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.172"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.BindableTests",
+    "severity": "1.032",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.171"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.BindResultTests",
+    "severity": "1.032",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.171"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.server.CookieSameSiteSupplierTests",
+    "severity": "1.032",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.171"
+  },
+  {
+    "type": "org.springframework.boot.origin.OriginTrackedResourceTests",
+    "severity": "1.032",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.171"
+  },
+  {
+    "type": "org.springframework.boot.env.RandomValuePropertySourceTests",
+    "severity": "1.032",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.171"
+  },
+  {
+    "type": "org.springframework.boot.ssl.pem.PemPrivateKeyParser",
+    "severity": "1.032",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.171"
+  },
+  {
+    "type": "org.springframework.boot.r2dbc.ConnectionFactoryBuilder",
+    "severity": "1.032",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.171"
+  },
+  {
+    "type": "org.springframework.boot.util.Instantiator",
+    "severity": "1.031",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.170"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.error.DefaultErrorAttributesTests",
+    "severity": "1.031",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.170"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataEnvironment",
+    "severity": "1.031",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.170"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.tomcat.TomcatReactiveWebServerFactoryTests",
+    "severity": "1.031",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.170"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataEnvironmentContributorsTests",
+    "severity": "1.030",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.170"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataLocationTests",
+    "severity": "1.030",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.170"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.BindableRuntimeHintsRegistrar",
+    "severity": "1.030",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.169"
+  },
+  {
+    "type": "org.springframework.boot.diagnostics.analyzer.BindValidationFailureAnalyzerTests",
+    "severity": "1.030",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.169"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.undertow.UndertowWebServerFactoryDelegate",
+    "severity": "1.030",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.169"
+  },
+  {
+    "type": "org.springframework.boot.diagnostics.analyzer.NoSuchMethodFailureAnalyzer",
+    "severity": "1.030",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.169"
+  },
+  {
+    "type": "org.springframework.boot.availability.ApplicationAvailabilityBeanTests",
+    "severity": "1.029",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.168"
+  },
+  {
+    "type": "org.springframework.boot.ResourceBannerTests",
+    "severity": "1.029",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.168"
+  },
+  {
+    "type": "org.springframework.boot.logging.DeferredLogTests",
+    "severity": "1.029",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.168"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.validation.ValidationBindHandler",
+    "severity": "1.029",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.168"
+  },
+  {
+    "type": "org.springframework.boot.util.InstantiatorTests",
+    "severity": "1.029",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.168"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContextTests",
+    "severity": "1.029",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.168"
+  },
+  {
+    "type": "org.springframework.boot.r2dbc.ConnectionFactoryBuilderTests",
+    "severity": "1.029",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.168"
+  },
+  {
+    "type": "org.springframework.boot.context.config.Profiles",
+    "severity": "1.028",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.167"
+  },
+  {
+    "type": "org.springframework.boot.context.config.StandardConfigDataLocationResolverTests",
+    "severity": "1.028",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.167"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataPropertiesTests",
+    "severity": "1.028",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.167"
+  },
+  {
+    "type": "org.springframework.boot.jackson.JsonObjectDeserializerTests",
+    "severity": "1.028",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.167"
+  },
+  {
+    "type": "org.springframework.boot.logging.logback.LogbackConfigurationAotContributionTests",
+    "severity": "1.028",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.167"
+  },
+  {
+    "type": "org.springframework.boot.context.ApplicationPidFileWriter",
+    "severity": "1.028",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.166"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.AbstractFilterRegistrationBeanTests",
+    "severity": "1.027",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.166"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.source.ConfigurationPropertySourcesTests",
+    "severity": "1.027",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.166"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.AbstractFilterRegistrationBean",
+    "severity": "1.027",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.166"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.undertow.UndertowReactiveWebServerFactory",
+    "severity": "1.027",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.166"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataResourceNotFoundExceptionTests",
+    "severity": "1.027",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.165"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.ServletContextInitializerBeans",
+    "severity": "1.026",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.165"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.test.MockKeyStoreSpi",
+    "severity": "1.026",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.165"
+  },
+  {
+    "type": "org.springframework.boot.env.SpringApplicationJsonEnvironmentPostProcessorTests",
+    "severity": "1.026",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.165"
+  },
+  {
+    "type": "org.springframework.boot.task.TaskExecutorBuilder",
+    "severity": "1.026",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.165"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.context.ServletWebServerMvcIntegrationTests",
+    "severity": "1.026",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.165"
+  },
+  {
+    "type": "org.springframework.boot.diagnostics.FailureAnalyzersTests",
+    "severity": "1.025",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.164"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.MapBinder",
+    "severity": "1.025",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.164"
+  },
+  {
+    "type": "org.springframework.boot.sql.init.AbstractScriptDatabaseInitializerTests",
+    "severity": "1.025",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.164"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.BindConverter",
+    "severity": "1.025",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.163"
+  },
+  {
+    "type": "org.springframework.boot.web.server.Cookie",
+    "severity": "1.025",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.163"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.support.ErrorPageFilterIntegrationTests",
+    "severity": "1.024",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.163"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.netty.NettyReactiveWebServerFactory",
+    "severity": "1.024",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.163"
+  },
+  {
+    "type": "org.springframework.boot.web.server.WebServerSslBundle",
+    "severity": "1.024",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.163"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.ServletContextInitializerBeansTests",
+    "severity": "1.024",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.162"
+  },
+  {
+    "type": "org.springframework.boot.logging.AbstractLoggingSystem",
+    "severity": "1.024",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.162"
+  },
+  {
+    "type": "org.springframework.boot.web.client.ClientHttpRequestFactories",
+    "severity": "1.024",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.162"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.jetty.SslServerCustomizer",
+    "severity": "1.024",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.162"
+  },
+  {
+    "type": "org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContextTests",
+    "severity": "1.024",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.162"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.jetty.JettyReactiveWebServerFactory",
+    "severity": "1.024",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.162"
+  },
+  {
+    "type": "org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrarTests",
+    "severity": "1.024",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.162"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.DefaultBindConstructorProvider",
+    "severity": "1.023",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.162"
+  },
+  {
+    "type": "org.springframework.boot.origin.TextResourceOrigin",
+    "severity": "1.023",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.161"
+  },
+  {
+    "type": "org.springframework.boot.origin.TextResourceOriginTests",
+    "severity": "1.023",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.161"
+  },
+  {
+    "type": "org.springframework.boot.logging.LoggingSystem",
+    "severity": "1.023",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.161"
+  },
+  {
+    "type": "org.springframework.boot.context.config.InvalidConfigDataPropertyExceptionTests",
+    "severity": "1.023",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.161"
+  },
+  {
+    "type": "org.springframework.boot.BeanDefinitionLoaderTests",
+    "severity": "1.023",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.161"
+  },
+  {
+    "type": "org.springframework.boot.jdbc.EmbeddedDatabaseConnectionTests",
+    "severity": "1.023",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.161"
+  },
+  {
+    "type": "org.springframework.boot.convert.ApplicationConversionServiceTests",
+    "severity": "1.023",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.161"
+  },
+  {
+    "type": "org.springframework.boot.web.server.WebServerFactoryCustomizerBeanPostProcessorTests",
+    "severity": "1.022",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.160"
+  },
+  {
+    "type": "org.springframework.boot.env.OriginTrackedYamlLoaderTests",
+    "severity": "1.022",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.160"
+  },
+  {
+    "type": "org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar",
+    "severity": "1.022",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.160"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.bind.handler.NoUnboundElementsBindHandler",
+    "severity": "1.022",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.160"
+  },
+  {
+    "type": "org.springframework.boot.diagnostics.analyzer.NoUniqueBeanDefinitionFailureAnalyzerTests",
+    "severity": "1.022",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.160"
+  },
+  {
+    "type": "org.springframework.boot.context.ConfigurationWarningsApplicationContextInitializer",
+    "severity": "1.022",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.160"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.ServletRegistrationBean",
+    "severity": "1.022",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.160"
+  },
+  {
+    "type": "org.springframework.boot.convert.StringToDurationConverterTests",
+    "severity": "1.021",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.159"
+  },
+  {
+    "type": "org.springframework.boot.logging.java.JavaLoggingSystem",
+    "severity": "1.021",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.159"
+  },
+  {
+    "type": "org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContextTests",
+    "severity": "1.021",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.159"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.source.SoftReferenceConfigurationPropertyCacheTests",
+    "severity": "1.021",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.159"
+  },
+  {
+    "type": "org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder",
+    "severity": "1.020",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.158"
+  },
+  {
+    "type": "org.springframework.boot.logging.java.JavaLoggingSystemTests",
+    "severity": "1.020",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.158"
+  },
+  {
+    "type": "org.springframework.boot.diagnostics.analyzer.BeanCurrentlyInCreationFailureAnalyzer",
+    "severity": "1.020",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.158"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.ServletRegistrationBeanTests",
+    "severity": "1.020",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.158"
+  },
+  {
+    "type": "org.springframework.boot.context.metrics.buffering.BufferedStartupStep",
+    "severity": "1.020",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.158"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.source.MockConfigurationPropertySource",
+    "severity": "1.020",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.158"
+  },
+  {
+    "type": "org.springframework.boot.context.ApplicationPidFileWriterTests",
+    "severity": "1.020",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.158"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.error.DefaultErrorAttributes",
+    "severity": "1.020",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.158"
+  },
+  {
+    "type": "org.springframework.boot.context.config.LocationResourceLoaderTests",
+    "severity": "1.020",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.157"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.ConfigurationPropertiesBindHandlerAdvisorTests",
+    "severity": "1.019",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.157"
+  },
+  {
+    "type": "org.springframework.boot.env.RandomValuePropertySource",
+    "severity": "1.019",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.157"
+  },
+  {
+    "type": "org.springframework.boot.env.SpringApplicationJsonEnvironmentPostProcessor",
+    "severity": "1.019",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.157"
+  },
+  {
+    "type": "org.springframework.boot.StartupInfoLogger",
+    "severity": "1.019",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.157"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.ConfigurationPropertiesBeanRegistrationAotProcessorTests",
+    "severity": "1.019",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.157"
+  },
+  {
+    "type": "org.springframework.boot.ssl.SslBundle",
+    "severity": "1.019",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.157"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertyResolverTests",
+    "severity": "1.019",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.156"
+  },
+  {
+    "type": "org.springframework.boot.security.reactive.ApplicationContextServerWebExchangeMatcherTests",
+    "severity": "1.019",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.156"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.support.SpringBootServletInitializer",
+    "severity": "1.018",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.156"
+  },
+  {
+    "type": "org.springframework.boot.ssl.AliasKeyManagerFactory",
+    "severity": "1.018",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.156"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataResourceNotFoundException",
+    "severity": "1.018",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.155"
+  },
+  {
+    "type": "org.springframework.boot.jackson.JsonComponentModule",
+    "severity": "1.017",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.154"
+  },
+  {
+    "type": "org.springframework.boot.context.properties.source.SystemEnvironmentPropertyMapper",
+    "severity": "1.017",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.154"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataLocationRuntimeHintsTests",
+    "severity": "1.016",
+    "representativity": "1.000",
+    "quality": "1.405",
+    "intervention": "1.000",
+    "cdi": "1.153"
+  },
+  {
+    "type": "org.springframework.boot.web.client.RootUriTemplateHandlerTests",
+    "severity": "1.066",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.066"
+  },
+  {
+    "type": "org.springframework.boot.context.config.ConfigDataResource",
+    "severity": "1.066",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.066"
+  },
+  {
+    "type": "org.springframework.boot.convert.DelimitedStringToCollectionConverterTests",
+    "severity": "1.049",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.049"
+  },
+  {
+    "type": "org.springframework.boot.convert.DelimitedStringToArrayConverterTests",
+    "severity": "1.033",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.033"
+  },
+  {
+    "type": "org.springframework.boot.web.servlet.WebServletHandlerTests",
+    "severity": "1.016",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.016"
+  },
+  {
+    "type": "org.springframework.boot.web.embedded.test.MockPkcs11SecurityProvider",
+    "severity": "1.016",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.016"
+  },
+  {
+    "type": "org.springframework.boot.diagnostics.AbstractFailureAnalyzerTests",
+    "severity": "1.008",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.008"
+  },
+  {
+    "type": "org.springframework.boot.json.JsonParseException",
+    "severity": "1.000",
+    "representativity": "1.000",
+    "quality": "1.000",
+    "intervention": "1.000",
+    "cdi": "1.000"
+  }
+]
