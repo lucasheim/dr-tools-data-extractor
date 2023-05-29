@@ -1,7 +1,7 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 109:
+/***/ 3109:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -43,27 +43,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
-const core = __importStar(__nccwpck_require__(186));
-const promises_1 = __nccwpck_require__(292);
-const path_1 = __importDefault(__nccwpck_require__(17));
-const fs_1 = __nccwpck_require__(147);
-const smells_summary_1 = __nccwpck_require__(575);
-const metric_summary_1 = __nccwpck_require__(615);
-const coocurrences_1 = __nccwpck_require__(693);
-const smells_validation_1 = __nccwpck_require__(665);
-const main_output_1 = __nccwpck_require__(349);
+const core = __importStar(__nccwpck_require__(2186));
+const promises_1 = __nccwpck_require__(3292);
+const path_1 = __importDefault(__nccwpck_require__(1017));
+const fs_1 = __nccwpck_require__(7147);
+const smells_validation_1 = __nccwpck_require__(9665);
+const main_output_1 = __nccwpck_require__(2349);
+const metric_summary_1 = __nccwpck_require__(6375);
+const coocurrences_1 = __nccwpck_require__(9521);
+const smells_summary_1 = __nccwpck_require__(3919);
+const ranking_1 = __nccwpck_require__(2988);
 var AnalysisFiles;
 (function (AnalysisFiles) {
     AnalysisFiles[AnalysisFiles["SmellsSummary"] = 0] = "SmellsSummary";
     AnalysisFiles[AnalysisFiles["MetricsSummary"] = 1] = "MetricsSummary";
     AnalysisFiles[AnalysisFiles["CoOcurrencesSmells"] = 2] = "CoOcurrencesSmells";
     AnalysisFiles[AnalysisFiles["SmellLimits"] = 3] = "SmellLimits";
+    AnalysisFiles[AnalysisFiles["NamespaceRanking"] = 4] = "NamespaceRanking";
+    AnalysisFiles[AnalysisFiles["TypeRanking"] = 5] = "TypeRanking";
+    AnalysisFiles[AnalysisFiles["MethodRanking"] = 6] = "MethodRanking";
 })(AnalysisFiles || (AnalysisFiles = {}));
 const pathMap = {
     [AnalysisFiles.SmellsSummary]: (basePath) => `${basePath}/smells/drtools-summary-smells.json`,
     [AnalysisFiles.MetricsSummary]: (basePath) => `${basePath}/metrics/drtools-metric-summary.json`,
     [AnalysisFiles.CoOcurrencesSmells]: (basePath) => `${basePath}/smells/drtools-cooccurrences-smells.json`,
-    [AnalysisFiles.SmellLimits]: (basePath) => `${basePath}/smells-limits.json`
+    [AnalysisFiles.SmellLimits]: (basePath) => `${basePath}/smells-limits.json`,
+    [AnalysisFiles.NamespaceRanking]: (basePath) => `${basePath}/ranking/drtools-cdi-namespaces.json`,
+    [AnalysisFiles.TypeRanking]: (basePath) => `${basePath}/ranking/drtools-cdi-types.json`,
+    [AnalysisFiles.MethodRanking]: (basePath) => `${basePath}/ranking/drtools-cdi-methods.json`
 };
 const getDirectories = (source) => __awaiter(void 0, void 0, void 0, function* () {
     return (yield (0, promises_1.readdir)(path_1.default.resolve(process.cwd(), source), {
@@ -92,6 +99,10 @@ function run() {
             const coocurrencesFile = (0, fs_1.readFileSync)(pathMap[AnalysisFiles.CoOcurrencesSmells](baseAnalysisPath), 'utf-8');
             const coocurrences = (0, coocurrences_1.parseCooccurrencesSummary)(coocurrencesFile);
             core.debug(`Coocurrences: ${coocurrencesFile}`);
+            const namespaceRankingFile = (0, fs_1.readFileSync)(pathMap[AnalysisFiles.NamespaceRanking](baseAnalysisPath), 'utf-8');
+            const typeRankingFile = (0, fs_1.readFileSync)(pathMap[AnalysisFiles.TypeRanking](baseAnalysisPath), 'utf-8');
+            const methodRankingFile = (0, fs_1.readFileSync)(pathMap[AnalysisFiles.MethodRanking](baseAnalysisPath), 'utf-8');
+            const ranking = (0, ranking_1.parseRanking)(namespaceRankingFile, typeRankingFile, methodRankingFile);
             const smellsLimitPath = pathMap[AnalysisFiles.SmellLimits](baseFolder);
             core.debug(`Limits Path: ${smellsLimitPath}`);
             if ((0, fs_1.existsSync)(smellsLimitPath)) {
@@ -104,7 +115,7 @@ function run() {
                     core.setFailed(JSON.stringify(violations));
                 }
             }
-            const pullRequestOutput = (0, main_output_1.outputTemplate)(metricsSummary, smellsSummary, coocurrences);
+            const pullRequestOutput = (0, main_output_1.outputTemplate)(metricsSummary, smellsSummary, coocurrences, ranking);
             core.setOutput('prtext', pullRequestOutput);
         }
         catch (error) {
@@ -120,77 +131,323 @@ run();
 
 /***/ }),
 
-/***/ 349:
+/***/ 2349:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.outputTemplate = void 0;
-const outputTemplate = (metricsSummary, smellsSummary, coocurrences) => `# :man_health_worker: DR-Tools Diagnosis :woman_health_worker:
+const outputTemplate = (metricsSummary, smellsSummary, coocurrences, ranking) => `![DR-Tools Logo](https://guilhermeslacerda.github.io/drtools-site/images/logo_drtools.png?raw=true)
 
-## General metrics :bar_chart:
+
+DR-Tools Code Health - Diagnosis
+================================
+
+- [DR-Tools Code Health - Diagnosis](#dr-tools-code-health---diagnosis)
+- [Metrics](#metrics)
+  - [Summary](#summary)
+- [Smells](#smells)
+  - [Smell Summary](#smell-summary)
+  - [Smell Detected](#smell-detected)
+    - [Namespace](#namespace)
+    - [Type](#type)
+    - [Method](#method)
+  - [Co-Occurrences](#co-occurrences)
+- [Ranking and Prioritization](#ranking-and-prioritization)
+  - [Most Critical Namespaces (Top 10)](#most-critical-namespaces-top-10)
+  - [Most Critical Types (Top 20)](#most-critical-types-top-20)
+  - [Most Critical Methods (Top 20)](#most-critical-methods-top-20)
+  
+# Metrics
+
+## Summary
+
 ${metricsSummary}
 
-## Smells :wastebasket:
+# Smells
+
+## Summary
+
 ${smellsSummary}
 
-## Coocurrences :link:
-${coocurrences}`;
+## Co-Ocurrences
+
+${coocurrences}
+
+# Ranking and Prioritization
+
+${ranking}
+
+**Legend:**
+
+*Criteria (severity, representativity, quality, intervention):* Values between 1 (less critical) and 10 (more critical)
+*CDI (code disease indicator):* Values between 1 (less critical) and 100 (more critical)
+
+**Explanation:**
+
+<font size="2">
+
+* The **severity** of a code element is determined by the sum of the severities of the smells present in the element, considering the weights given to their importance, which can be defined by the developer.
+
+* The **representativity** defines how representative the smells present in a code element are compared to other smells at the same granularity. Based on representativeness, it is possible to assess which code elements are most affected by smells at a given granularity.
+
+* The **impact on quality** is determined by mapping the quality attributes associated with smells to their respective weights, also defined by the developer.
+
+* The **intervention** defines the degree of importance in addressing a given code element, considering the perception of the developers, who can customize these weights.
+
+The **DR-Tools Code Health** allows analyzing each of these criteria individually and in their respective granularity. These values are presented and normalized on a scale of 1 (less critical) to 10 (more critical).
+Additionally, a normalized indicator is provided that aggregates all these criteria, called the *Code Disease Indicator (CDI)*, with values ranging from 1 (least critical) to 100 (most critical).
+
+</font>`;
 exports.outputTemplate = outputTemplate;
 
 
 /***/ }),
 
-/***/ 693:
+/***/ 5083:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.parseCooccurrencesSummary = void 0;
-const parseCooccurrences = (coocurrences) => {
-    return coocurrences
-        .map(({ description, instances, percentual, impacts_on }) => `**${description.trim()}** - ${instances} instances - ${percentual}\nImpacts on: ${impacts_on}`)
-        .join('\n\n');
+exports.formatNumber = exports.GranularityDescriptionMap = exports.Granularity = void 0;
+var Granularity;
+(function (Granularity) {
+    Granularity["NAMESPACE"] = "NAMESPACE";
+    Granularity["TYPES"] = "TYPE";
+    Granularity["METHODS"] = "METHOD";
+})(Granularity = exports.Granularity || (exports.Granularity = {}));
+exports.GranularityDescriptionMap = {
+    [Granularity.NAMESPACE]: 'Namespaces',
+    [Granularity.TYPES]: 'Types',
+    [Granularity.METHODS]: 'Methods'
 };
+const formatNumber = (value) => {
+    if (!value) {
+        return '-';
+    }
+    return value.toFixed(2);
+};
+exports.formatNumber = formatNumber;
+
+
+/***/ }),
+
+/***/ 9521:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseCooccurrencesSummary = void 0;
+const coocurrences_output_1 = __nccwpck_require__(3883);
 const parseCooccurrencesSummary = (coocurrenceFile) => {
     const coocurrences = JSON.parse(coocurrenceFile);
-    return coocurrences
-        .map(({ category, data }) => `### ${category}\n${parseCooccurrences(data)}\n`)
-        .join('');
+    return (0, coocurrences_output_1.outputTemplate)(coocurrences);
 };
 exports.parseCooccurrencesSummary = parseCooccurrencesSummary;
 
 
 /***/ }),
 
-/***/ 615:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 3883:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.outputTemplate = void 0;
+const common_1 = __nccwpck_require__(5083);
+const outputTemplate = (coocurrences) => {
+    const entries = mapEntries(coocurrences);
+    return `${[
+        outputSection(entries, common_1.Granularity.NAMESPACE),
+        outputSection(entries, common_1.Granularity.TYPES),
+        outputSection(entries, common_1.Granularity.METHODS)
+    ].join('\n\n')}`;
+};
+exports.outputTemplate = outputTemplate;
+const mapEntries = (coocurrences) => {
+    return coocurrences.reduce((prev, curr) => (Object.assign(Object.assign({}, prev), { [curr.category]: curr.data })), {});
+};
+const outputSection = (categorizedCooccurrences, granularity) => {
+    const sectionSummary = categorizedCooccurrences[granularity];
+    if (!sectionSummary || !sectionSummary.length) {
+        return '';
+    }
+    return `**Category: ${common_1.GranularityDescriptionMap[granularity]}**
+| Co-Occurrence | # of Instances | % | Impacts on |
+|:----------------|-----------:|-------------:|:---------------|
+${sectionSummary.map(outputTableRow).join('\n')}`;
+};
+const outputTableRow = ({ description, impacts_on, instances, percentual }) => {
+    return `| ${description} | ${instances} | ${percentual} | ${impacts_on} |`;
+};
+
+
+/***/ }),
+
+/***/ 6375:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseMetricSummary = void 0;
-const fromSnakeCaseToCapitalized = (text) => {
-    return text
-        .replace(/_/g, ' ')
-        .split(' ')
-        .map(word => [word.charAt(0).toUpperCase(), ...word.slice(1)].join(''))
-        .join(' ');
-};
+const metric_summary_output_1 = __nccwpck_require__(9046);
 const parseMetricSummary = (metricSummaryFile) => {
     const metricsSummary = JSON.parse(metricSummaryFile);
-    return metricsSummary
-        .map(({ description, value }) => `**${fromSnakeCaseToCapitalized(description)}** - ${value}\n`)
-        .join('');
+    return (0, metric_summary_output_1.outputTemplate)(metricsSummary);
 };
 exports.parseMetricSummary = parseMetricSummary;
 
 
 /***/ }),
 
-/***/ 267:
+/***/ 9046:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.outputTemplate = void 0;
+const common_1 = __nccwpck_require__(5083);
+const metric_summary_types_1 = __nccwpck_require__(5052);
+const outputTemplate = (metrics) => {
+    const mappedMetrics = mapEntries(metrics);
+    return `| Description     | Total      |  Average      | Median        | Standard Deviation    |
+|:----------------|-----------:|--------------:|--------------:|----------------------:|
+${outputTableRow(mappedMetrics[metric_summary_types_1.MetricMap.NAMESPACES])}
+${outputTableRow(mappedMetrics[metric_summary_types_1.MetricMap.TYPES])}
+${outputTableRow(mappedMetrics[metric_summary_types_1.MetricMap.SLOC])}
+${outputTableRow(mappedMetrics[metric_summary_types_1.MetricMap.METHODS])}
+${outputTableRow(mappedMetrics[metric_summary_types_1.MetricMap.CYCLO])}
+`;
+};
+exports.outputTemplate = outputTemplate;
+const mapEntries = (metrics) => {
+    return metrics.reduce((prev, curr) => (Object.assign(Object.assign({}, prev), { [curr.description]: {
+            description: metric_summary_types_1.MetricNames[curr.description],
+            value: String(curr.value),
+            percent: `${String(curr.percent)} ${metric_summary_types_1.MetricAverageExplanation[curr.description]}`,
+            median: (0, common_1.formatNumber)(curr.median),
+            std_dev: (0, common_1.formatNumber)(curr.std_dev)
+        } })), {});
+};
+const outputTableRow = (metric) => {
+    return `| ${metric.description} | ${metric === null || metric === void 0 ? void 0 : metric.value} | ${metric.percent} | ${metric.median} | ${metric.std_dev} |`;
+};
+
+
+/***/ }),
+
+/***/ 5052:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MetricAverageExplanation = exports.MetricNames = exports.MetricMap = void 0;
+var MetricMap;
+(function (MetricMap) {
+    MetricMap["NAMESPACES"] = "total_namespaces";
+    MetricMap["TYPES"] = "total_types";
+    MetricMap["SLOC"] = "total_sloc";
+    MetricMap["METHODS"] = "total_methods";
+    MetricMap["CYCLO"] = "total_cyclo";
+})(MetricMap = exports.MetricMap || (exports.MetricMap = {}));
+exports.MetricNames = {
+    [MetricMap.NAMESPACES]: 'Namespaces',
+    [MetricMap.TYPES]: 'Types',
+    [MetricMap.SLOC]: 'SLOC',
+    [MetricMap.METHODS]: 'Methods',
+    [MetricMap.CYCLO]: 'CYCLO'
+};
+exports.MetricAverageExplanation = {
+    [MetricMap.NAMESPACES]: '',
+    [MetricMap.TYPES]: '(types/namespaces)',
+    [MetricMap.SLOC]: '(SLOC/types)',
+    [MetricMap.METHODS]: '(methods/types)',
+    [MetricMap.CYCLO]: '(CYCLO/types)'
+};
+
+
+/***/ }),
+
+/***/ 2988:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseRanking = void 0;
+const ranking_output_1 = __nccwpck_require__(2594);
+const parseRanking = (namespaceRankingFile, typeRankingFile, methodRankingFile) => {
+    const namespaceRanking = JSON.parse(namespaceRankingFile);
+    const typeRanking = JSON.parse(typeRankingFile);
+    const methodRanking = JSON.parse(methodRankingFile);
+    return (0, ranking_output_1.outputTemplate)(namespaceRanking, typeRanking, methodRanking);
+};
+exports.parseRanking = parseRanking;
+
+
+/***/ }),
+
+/***/ 2594:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.outputTemplate = void 0;
+const common_1 = __nccwpck_require__(5083);
+const rankingConfig = {
+    [common_1.Granularity.NAMESPACE]: {
+        field: 'namespace',
+        title: 'Namespaces',
+        column: 'Namespace',
+        top: 10
+    },
+    [common_1.Granularity.TYPES]: {
+        field: 'type',
+        title: 'Types',
+        column: 'Type',
+        top: 20
+    },
+    [common_1.Granularity.METHODS]: {
+        field: 'method',
+        title: 'Methods',
+        column: 'Method',
+        top: 20
+    }
+};
+const outputTemplate = (namespaceRanking, typeRanking, methodRanking) => {
+    return [
+        outputSection(namespaceRanking, common_1.Granularity.NAMESPACE),
+        outputSection(typeRanking, common_1.Granularity.TYPES),
+        outputSection(methodRanking, common_1.Granularity.METHODS)
+    ].join('\n');
+};
+exports.outputTemplate = outputTemplate;
+const outputSection = (items, granularity) => {
+    const { field, title, column, top } = rankingConfig[granularity];
+    return `## Most Critical ${title} (Top ${top})
+| ${column} | Severity | Representativity | Quality | Intervention | CDI |
+|:----------------|-----------:|-------------:|---------------:|-----------------:|--------------:|
+${items
+        .slice(0, top)
+        .map(item => outputTableRow(item, field))
+        .join('\n')}`;
+};
+const outputTableRow = (item, field) => {
+    return `| ${item[field]} | ${item.severity} | ${item.representativity} | ${item.quality} | ${item.intervention} |  **${item.cdi}** |`;
+};
+
+
+/***/ }),
+
+/***/ 2267:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -206,30 +463,59 @@ exports.parseSmellLimits = parseSmellLimits;
 
 /***/ }),
 
-/***/ 575:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 3919:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseSmellsSummary = void 0;
-const parseSmell = (smells) => {
-    return smells
-        .map(({ smell, instances, perc_instances }) => `**${smell}** - ${instances} instances - ${perc_instances}\n`)
-        .join('');
-};
+const smells_summary_output_1 = __nccwpck_require__(4843);
 const parseSmellsSummary = (smellsSummaryFile) => {
     const smellsSummary = JSON.parse(smellsSummaryFile);
-    return smellsSummary
-        .map(({ granularity, smells }) => `### ${granularity}\n${parseSmell(smells)}`)
-        .join('');
+    return (0, smells_summary_output_1.outputTemplate)(smellsSummary);
 };
 exports.parseSmellsSummary = parseSmellsSummary;
 
 
 /***/ }),
 
-/***/ 665:
+/***/ 4843:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.outputTemplate = void 0;
+const common_1 = __nccwpck_require__(5083);
+const outputTemplate = (smellsSummary) => {
+    const entries = mapEntries(smellsSummary);
+    return `${outputSection(entries, common_1.Granularity.NAMESPACE)}\n
+${outputSection(entries, common_1.Granularity.TYPES)}\n
+${outputSection(entries, common_1.Granularity.METHODS)}`;
+};
+exports.outputTemplate = outputTemplate;
+const outputSection = (granularitySummary, granularity) => {
+    const sectionSummary = granularitySummary[granularity];
+    if (!sectionSummary || !sectionSummary.length) {
+        return '';
+    }
+    return `### ${common_1.GranularityDescriptionMap[granularity]}
+| Smell | # of Instances | % |
+|:----------------|-----------:|------------------------------:|
+${sectionSummary.map(outputTableRow).join('\n')}`;
+};
+const outputTableRow = ({ instances, perc_instances, smell }) => {
+    return `| ${smell} | ${instances} | ${perc_instances} |`;
+};
+const mapEntries = (smellsSummary) => {
+    return smellsSummary.reduce((prev, curr) => (Object.assign(Object.assign({}, prev), { [curr.granularity]: curr.smells })), {});
+};
+
+
+/***/ }),
+
+/***/ 9665:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -259,8 +545,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.validateSmellsLimit = void 0;
-const core = __importStar(__nccwpck_require__(186));
-const smells_limits_1 = __nccwpck_require__(267);
+const core = __importStar(__nccwpck_require__(2186));
+const smells_limits_1 = __nccwpck_require__(2267);
 const validateSmellsLimit = (smellsSummaryFile, smellLimitsFile) => {
     const foundSmells = JSON.parse(smellsSummaryFile);
     core.debug(`Found Smells: ${foundSmells}`);
@@ -290,7 +576,7 @@ exports.validateSmellsLimit = validateSmellsLimit;
 
 /***/ }),
 
-/***/ 351:
+/***/ 7351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -316,8 +602,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.issue = exports.issueCommand = void 0;
-const os = __importStar(__nccwpck_require__(37));
-const utils_1 = __nccwpck_require__(278);
+const os = __importStar(__nccwpck_require__(2037));
+const utils_1 = __nccwpck_require__(5278);
 /**
  * Commands
  *
@@ -389,7 +675,7 @@ function escapeProperty(s) {
 
 /***/ }),
 
-/***/ 186:
+/***/ 2186:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -424,12 +710,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getIDToken = exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.notice = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
-const command_1 = __nccwpck_require__(351);
+const command_1 = __nccwpck_require__(7351);
 const file_command_1 = __nccwpck_require__(717);
-const utils_1 = __nccwpck_require__(278);
-const os = __importStar(__nccwpck_require__(37));
-const path = __importStar(__nccwpck_require__(17));
-const oidc_utils_1 = __nccwpck_require__(41);
+const utils_1 = __nccwpck_require__(5278);
+const os = __importStar(__nccwpck_require__(2037));
+const path = __importStar(__nccwpck_require__(1017));
+const oidc_utils_1 = __nccwpck_require__(8041);
 /**
  * The code to exit an action
  */
@@ -714,17 +1000,17 @@ exports.getIDToken = getIDToken;
 /**
  * Summary exports
  */
-var summary_1 = __nccwpck_require__(327);
+var summary_1 = __nccwpck_require__(1327);
 Object.defineProperty(exports, "summary", ({ enumerable: true, get: function () { return summary_1.summary; } }));
 /**
  * @deprecated use core.summary
  */
-var summary_2 = __nccwpck_require__(327);
+var summary_2 = __nccwpck_require__(1327);
 Object.defineProperty(exports, "markdownSummary", ({ enumerable: true, get: function () { return summary_2.markdownSummary; } }));
 /**
  * Path exports
  */
-var path_utils_1 = __nccwpck_require__(981);
+var path_utils_1 = __nccwpck_require__(2981);
 Object.defineProperty(exports, "toPosixPath", ({ enumerable: true, get: function () { return path_utils_1.toPosixPath; } }));
 Object.defineProperty(exports, "toWin32Path", ({ enumerable: true, get: function () { return path_utils_1.toWin32Path; } }));
 Object.defineProperty(exports, "toPlatformPath", ({ enumerable: true, get: function () { return path_utils_1.toPlatformPath; } }));
@@ -761,10 +1047,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.prepareKeyValueMessage = exports.issueFileCommand = void 0;
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const fs = __importStar(__nccwpck_require__(147));
-const os = __importStar(__nccwpck_require__(37));
-const uuid_1 = __nccwpck_require__(840);
-const utils_1 = __nccwpck_require__(278);
+const fs = __importStar(__nccwpck_require__(7147));
+const os = __importStar(__nccwpck_require__(2037));
+const uuid_1 = __nccwpck_require__(5840);
+const utils_1 = __nccwpck_require__(5278);
 function issueFileCommand(command, message) {
     const filePath = process.env[`GITHUB_${command}`];
     if (!filePath) {
@@ -797,7 +1083,7 @@ exports.prepareKeyValueMessage = prepareKeyValueMessage;
 
 /***/ }),
 
-/***/ 41:
+/***/ 8041:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -813,9 +1099,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OidcClient = void 0;
-const http_client_1 = __nccwpck_require__(255);
-const auth_1 = __nccwpck_require__(526);
-const core_1 = __nccwpck_require__(186);
+const http_client_1 = __nccwpck_require__(6255);
+const auth_1 = __nccwpck_require__(5526);
+const core_1 = __nccwpck_require__(2186);
 class OidcClient {
     static createHttpClient(allowRetry = true, maxRetry = 10) {
         const requestOptions = {
@@ -881,7 +1167,7 @@ exports.OidcClient = OidcClient;
 
 /***/ }),
 
-/***/ 981:
+/***/ 2981:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -907,7 +1193,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.toPlatformPath = exports.toWin32Path = exports.toPosixPath = void 0;
-const path = __importStar(__nccwpck_require__(17));
+const path = __importStar(__nccwpck_require__(1017));
 /**
  * toPosixPath converts the given path to the posix form. On Windows, \\ will be
  * replaced with /.
@@ -946,7 +1232,7 @@ exports.toPlatformPath = toPlatformPath;
 
 /***/ }),
 
-/***/ 327:
+/***/ 1327:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -962,8 +1248,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.summary = exports.markdownSummary = exports.SUMMARY_DOCS_URL = exports.SUMMARY_ENV_VAR = void 0;
-const os_1 = __nccwpck_require__(37);
-const fs_1 = __nccwpck_require__(147);
+const os_1 = __nccwpck_require__(2037);
+const fs_1 = __nccwpck_require__(7147);
 const { access, appendFile, writeFile } = fs_1.promises;
 exports.SUMMARY_ENV_VAR = 'GITHUB_STEP_SUMMARY';
 exports.SUMMARY_DOCS_URL = 'https://docs.github.com/actions/using-workflows/workflow-commands-for-github-actions#adding-a-job-summary';
@@ -1236,7 +1522,7 @@ exports.summary = _summary;
 
 /***/ }),
 
-/***/ 278:
+/***/ 5278:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -1283,7 +1569,7 @@ exports.toCommandProperties = toCommandProperties;
 
 /***/ }),
 
-/***/ 526:
+/***/ 5526:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -1371,7 +1657,7 @@ exports.PersonalAccessTokenCredentialHandler = PersonalAccessTokenCredentialHand
 
 /***/ }),
 
-/***/ 255:
+/***/ 6255:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -1407,10 +1693,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.HttpClient = exports.isHttps = exports.HttpClientResponse = exports.HttpClientError = exports.getProxyUrl = exports.MediaTypes = exports.Headers = exports.HttpCodes = void 0;
-const http = __importStar(__nccwpck_require__(685));
-const https = __importStar(__nccwpck_require__(687));
-const pm = __importStar(__nccwpck_require__(835));
-const tunnel = __importStar(__nccwpck_require__(294));
+const http = __importStar(__nccwpck_require__(3685));
+const https = __importStar(__nccwpck_require__(5687));
+const pm = __importStar(__nccwpck_require__(9835));
+const tunnel = __importStar(__nccwpck_require__(4294));
 var HttpCodes;
 (function (HttpCodes) {
     HttpCodes[HttpCodes["OK"] = 200] = "OK";
@@ -1983,7 +2269,7 @@ const lowercaseKeys = (obj) => Object.keys(obj).reduce((c, k) => ((c[k.toLowerCa
 
 /***/ }),
 
-/***/ 835:
+/***/ 9835:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -2051,27 +2337,27 @@ exports.checkBypass = checkBypass;
 
 /***/ }),
 
-/***/ 294:
+/***/ 4294:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-module.exports = __nccwpck_require__(219);
+module.exports = __nccwpck_require__(4219);
 
 
 /***/ }),
 
-/***/ 219:
+/***/ 4219:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
 
 
-var net = __nccwpck_require__(808);
-var tls = __nccwpck_require__(404);
-var http = __nccwpck_require__(685);
-var https = __nccwpck_require__(687);
-var events = __nccwpck_require__(361);
-var assert = __nccwpck_require__(491);
-var util = __nccwpck_require__(837);
+var net = __nccwpck_require__(1808);
+var tls = __nccwpck_require__(4404);
+var http = __nccwpck_require__(3685);
+var https = __nccwpck_require__(5687);
+var events = __nccwpck_require__(2361);
+var assert = __nccwpck_require__(9491);
+var util = __nccwpck_require__(3837);
 
 
 exports.httpOverHttp = httpOverHttp;
@@ -2331,7 +2617,7 @@ exports.debug = debug; // for test
 
 /***/ }),
 
-/***/ 840:
+/***/ 5840:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2395,29 +2681,29 @@ Object.defineProperty(exports, "parse", ({
   }
 }));
 
-var _v = _interopRequireDefault(__nccwpck_require__(628));
+var _v = _interopRequireDefault(__nccwpck_require__(8628));
 
-var _v2 = _interopRequireDefault(__nccwpck_require__(409));
+var _v2 = _interopRequireDefault(__nccwpck_require__(6409));
 
-var _v3 = _interopRequireDefault(__nccwpck_require__(122));
+var _v3 = _interopRequireDefault(__nccwpck_require__(5122));
 
-var _v4 = _interopRequireDefault(__nccwpck_require__(120));
+var _v4 = _interopRequireDefault(__nccwpck_require__(9120));
 
-var _nil = _interopRequireDefault(__nccwpck_require__(332));
+var _nil = _interopRequireDefault(__nccwpck_require__(5332));
 
-var _version = _interopRequireDefault(__nccwpck_require__(595));
+var _version = _interopRequireDefault(__nccwpck_require__(1595));
 
-var _validate = _interopRequireDefault(__nccwpck_require__(900));
+var _validate = _interopRequireDefault(__nccwpck_require__(6900));
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(950));
+var _stringify = _interopRequireDefault(__nccwpck_require__(8950));
 
-var _parse = _interopRequireDefault(__nccwpck_require__(746));
+var _parse = _interopRequireDefault(__nccwpck_require__(2746));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 
-/***/ 569:
+/***/ 4569:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2428,7 +2714,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _crypto = _interopRequireDefault(__nccwpck_require__(113));
+var _crypto = _interopRequireDefault(__nccwpck_require__(6113));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2447,7 +2733,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 332:
+/***/ 5332:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -2462,7 +2748,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 746:
+/***/ 2746:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2473,7 +2759,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _validate = _interopRequireDefault(__nccwpck_require__(900));
+var _validate = _interopRequireDefault(__nccwpck_require__(6900));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2540,7 +2826,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = rng;
 
-var _crypto = _interopRequireDefault(__nccwpck_require__(113));
+var _crypto = _interopRequireDefault(__nccwpck_require__(6113));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2560,7 +2846,7 @@ function rng() {
 
 /***/ }),
 
-/***/ 274:
+/***/ 5274:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2571,7 +2857,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _crypto = _interopRequireDefault(__nccwpck_require__(113));
+var _crypto = _interopRequireDefault(__nccwpck_require__(6113));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2590,7 +2876,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 950:
+/***/ 8950:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2601,7 +2887,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _validate = _interopRequireDefault(__nccwpck_require__(900));
+var _validate = _interopRequireDefault(__nccwpck_require__(6900));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2636,7 +2922,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 628:
+/***/ 8628:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2649,7 +2935,7 @@ exports["default"] = void 0;
 
 var _rng = _interopRequireDefault(__nccwpck_require__(807));
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(950));
+var _stringify = _interopRequireDefault(__nccwpck_require__(8950));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2750,7 +3036,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 409:
+/***/ 6409:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2761,9 +3047,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _v = _interopRequireDefault(__nccwpck_require__(998));
+var _v = _interopRequireDefault(__nccwpck_require__(5998));
 
-var _md = _interopRequireDefault(__nccwpck_require__(569));
+var _md = _interopRequireDefault(__nccwpck_require__(4569));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2773,7 +3059,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 998:
+/***/ 5998:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2785,9 +3071,9 @@ Object.defineProperty(exports, "__esModule", ({
 exports["default"] = _default;
 exports.URL = exports.DNS = void 0;
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(950));
+var _stringify = _interopRequireDefault(__nccwpck_require__(8950));
 
-var _parse = _interopRequireDefault(__nccwpck_require__(746));
+var _parse = _interopRequireDefault(__nccwpck_require__(2746));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2858,7 +3144,7 @@ function _default(name, version, hashfunc) {
 
 /***/ }),
 
-/***/ 122:
+/***/ 5122:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2871,7 +3157,7 @@ exports["default"] = void 0;
 
 var _rng = _interopRequireDefault(__nccwpck_require__(807));
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(950));
+var _stringify = _interopRequireDefault(__nccwpck_require__(8950));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2902,7 +3188,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 120:
+/***/ 9120:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2913,9 +3199,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _v = _interopRequireDefault(__nccwpck_require__(998));
+var _v = _interopRequireDefault(__nccwpck_require__(5998));
 
-var _sha = _interopRequireDefault(__nccwpck_require__(274));
+var _sha = _interopRequireDefault(__nccwpck_require__(5274));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2925,7 +3211,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 900:
+/***/ 6900:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2949,7 +3235,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 595:
+/***/ 1595:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2960,7 +3246,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _validate = _interopRequireDefault(__nccwpck_require__(900));
+var _validate = _interopRequireDefault(__nccwpck_require__(6900));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2977,7 +3263,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 491:
+/***/ 9491:
 /***/ ((module) => {
 
 "use strict";
@@ -2985,7 +3271,7 @@ module.exports = require("assert");
 
 /***/ }),
 
-/***/ 113:
+/***/ 6113:
 /***/ ((module) => {
 
 "use strict";
@@ -2993,7 +3279,7 @@ module.exports = require("crypto");
 
 /***/ }),
 
-/***/ 361:
+/***/ 2361:
 /***/ ((module) => {
 
 "use strict";
@@ -3001,7 +3287,7 @@ module.exports = require("events");
 
 /***/ }),
 
-/***/ 147:
+/***/ 7147:
 /***/ ((module) => {
 
 "use strict";
@@ -3009,7 +3295,7 @@ module.exports = require("fs");
 
 /***/ }),
 
-/***/ 292:
+/***/ 3292:
 /***/ ((module) => {
 
 "use strict";
@@ -3017,7 +3303,7 @@ module.exports = require("fs/promises");
 
 /***/ }),
 
-/***/ 685:
+/***/ 3685:
 /***/ ((module) => {
 
 "use strict";
@@ -3025,7 +3311,7 @@ module.exports = require("http");
 
 /***/ }),
 
-/***/ 687:
+/***/ 5687:
 /***/ ((module) => {
 
 "use strict";
@@ -3033,7 +3319,7 @@ module.exports = require("https");
 
 /***/ }),
 
-/***/ 808:
+/***/ 1808:
 /***/ ((module) => {
 
 "use strict";
@@ -3041,7 +3327,7 @@ module.exports = require("net");
 
 /***/ }),
 
-/***/ 37:
+/***/ 2037:
 /***/ ((module) => {
 
 "use strict";
@@ -3049,7 +3335,7 @@ module.exports = require("os");
 
 /***/ }),
 
-/***/ 17:
+/***/ 1017:
 /***/ ((module) => {
 
 "use strict";
@@ -3057,7 +3343,7 @@ module.exports = require("path");
 
 /***/ }),
 
-/***/ 404:
+/***/ 4404:
 /***/ ((module) => {
 
 "use strict";
@@ -3065,7 +3351,7 @@ module.exports = require("tls");
 
 /***/ }),
 
-/***/ 837:
+/***/ 3837:
 /***/ ((module) => {
 
 "use strict";
@@ -3115,7 +3401,7 @@ module.exports = require("util");
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(109);
+/******/ 	var __webpack_exports__ = __nccwpck_require__(3109);
 /******/ 	module.exports = __webpack_exports__;
 /******/ 	
 /******/ })()
