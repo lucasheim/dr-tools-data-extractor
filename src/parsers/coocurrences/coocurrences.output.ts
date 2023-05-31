@@ -9,11 +9,13 @@ export const outputTemplate = (
   coocurrences: CoOcurrencesCategorized[]
 ): string => {
   const entries = mapEntries(coocurrences)
-  return `${[
+  return `<details>${[
     outputSection(entries, Granularity.NAMESPACE),
     outputSection(entries, Granularity.TYPES),
     outputSection(entries, Granularity.METHODS)
-  ].join('\n\n')}`
+  ].join('\n\n')}
+
+</details>`
 }
 
 const mapEntries = (
@@ -38,8 +40,8 @@ const outputSection = (
   }
 
   return `**Category: ${GranularityDescriptionMap[granularity]}**
-| Co-Occurrence | # of Instances | % | Impacts on |
-|:----------------|-----------:|-------------:|:---------------|
+| Co-Occurrence | # of Instances | % | Impacts on | Smells |
+|:----------------|-----------:|-------------:|:---------------|--:|
 ${sectionSummary.map(outputTableRow).join('\n')}`
 }
 
@@ -47,7 +49,8 @@ const outputTableRow = ({
   description,
   impacts_on,
   instances,
-  percentual
+  percentual,
+  smells
 }: CoOcurrence): string => {
-  return `| ${description} | ${instances} | ${percentual} | ${impacts_on} |`
+  return `| ${description} | ${instances} | ${percentual} | ${impacts_on} | ${smells} |`
 }

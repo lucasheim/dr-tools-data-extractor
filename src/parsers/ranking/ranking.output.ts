@@ -32,14 +32,15 @@ export const outputTemplate = (
   typeRanking: TypeRankingItem[],
   methodRanking: MethodRankingItem[]
 ): string => {
-  return [
-    outputSection<NamespaceRankingItem>(
-      namespaceRanking,
-      Granularity.NAMESPACE
-    ),
-    outputSection<TypeRankingItem>(typeRanking, Granularity.TYPES),
-    outputSection<MethodRankingItem>(methodRanking, Granularity.METHODS)
-  ].join('\n')
+  return `<details>
+
+${[
+  outputSection<NamespaceRankingItem>(namespaceRanking, Granularity.NAMESPACE),
+  outputSection<TypeRankingItem>(typeRanking, Granularity.TYPES),
+  outputSection<MethodRankingItem>(methodRanking, Granularity.METHODS)
+].join('\n')}
+
+</details>`
 }
 
 const outputSection = <T extends BaseRankingItem>(

@@ -1,4 +1,6 @@
-export const output = `## Most Critical Namespaces (Top 10)
+export const output = `<details>
+
+## Most Critical Namespaces (Top 10)
 | Namespace | Severity | Representativity | Quality | Intervention | CDI |
 |:----------------|-----------:|-------------:|---------------:|-----------------:|--------------:|
 | org.springframework.boot.context.config | 10.000 | 1.000 | 1.000 | 1.000 |  **10.000** |
@@ -56,4 +58,6 @@ export const output = `## Most Critical Namespaces (Top 10)
 | org.springframework.boot.context.properties.source.ConfigurationPropertyName$Elements.Elements(CharSequence source, int size, int[] start, int[] end, ElementType[] type, CharSequence[] resolved) | 5.428 | 10.000 | 7.972 | 8.024 |  **47.035** |
 | org.springframework.boot.SpringApplication.prepareContext(DefaultBootstrapContext bootstrapContext, ConfigurableApplicationContext context, ConfigurableEnvironment environment, SpringApplicationRunListeners listeners, ApplicationArguments applicationArguments, Banner printedBanner) | 6.382 | 10.000 | 5.817 | 5.390 |  **45.113** |
 | org.springframework.boot.context.properties.source.SpringIterableConfigurationPropertySource$Mappings.updateMappings(String[] propertyNames) | 7.357 | 5.500 | 6.197 | 5.171 |  **41.366** |
-| org.springframework.boot.web.embedded.tomcat.TomcatWebServer.rethrowDeferredStartupExceptions() | 6.719 | 5.500 | 6.197 | 5.171 |  **37.778** |`
+| org.springframework.boot.web.embedded.tomcat.TomcatWebServer.rethrowDeferredStartupExceptions() | 6.719 | 5.500 | 6.197 | 5.171 |  **37.778** |
+
+</details>`

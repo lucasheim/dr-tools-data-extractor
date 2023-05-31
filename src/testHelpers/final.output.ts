@@ -62,27 +62,31 @@ DR-Tools Code Health - Diagnosis
 
 ## Co-Ocurrences
 
-
+<details>
 
 **Category: Types**
-| Co-Occurrence | # of Instances | % | Impacts on |
-|:----------------|-----------:|-------------:|:---------------|
-| Complex and low cohesion structures in types | 36 | 16.67% | Cohesion, Complexity |
-| Deep hierarchy, big and low cohesion structures in types | 5 | 2.31% | Complexity, Size |
-| Low cohesion and big structures in types | 2 | 0.93% | Cohesion, Size |
-| Complex structures in types | 1 | 0.46% | Complexity, Size |
-| Low cohesion and high coupling structures in types | 1 | 0.46% | Cohesion, Coupling |
+| Co-Occurrence | # of Instances | % | Impacts on | Smells |
+|:----------------|-----------:|-------------:|:---------------|--:|
+| Complex and low cohesion structures in types | 36 | 16.67% | Cohesion, Complexity | Insufficient Modularization, Multifaceted Abstraction |
+| Deep hierarchy, big and low cohesion structures in types | 5 | 2.31% | Complexity, Size | God Class, Insufficient Modularization, Deep Hierarchy, Multifaceted Abstraction |
+| Low cohesion and big structures in types | 2 | 0.93% | Cohesion, Size | Insufficient Modularization, God Class |
+| Complex structures in types | 1 | 0.46% | Complexity, Size | God Class, Insufficient Modularization, Multifaceted Abstraction |
+| Low cohesion and high coupling structures in types | 1 | 0.46% | Cohesion, Coupling | Insufficient Modularization, Hub-Like Modularization |
 
 **Category: Methods**
-| Co-Occurrence | # of Instances | % | Impacts on |
-|:----------------|-----------:|-------------:|:---------------|
-| High complexity structures in methods | 343 | 18.26% | Complexity |
-| Structures difficult to maintain in methods  | 17 | 0.91% | Complexity, Size |
-| Several parameters and complex structures in methods | 15 | 0.80% | Complexity, Size |
-| Complex structures in methods | 12 | 0.64% | Complexity |
-| Big structures in methods | 1 | 0.05% | Size |
+| Co-Occurrence | # of Instances | % | Impacts on | Smells |
+|:----------------|-----------:|-------------:|:---------------|--:|
+| High complexity structures in methods | 343 | 18.26% | Complexity | Complex Method, Bumpy Road |
+| Structures difficult to maintain in methods  | 17 | 0.91% | Complexity, Size | Complex Method, Long Method |
+| Several parameters and complex structures in methods | 15 | 0.80% | Complexity, Size | Long Parameter List, Complex Method |
+| Complex structures in methods | 12 | 0.64% | Complexity | Bumpy Road, Long Method, Complex Method |
+| Big structures in methods | 1 | 0.05% | Size | Long Method, Long Parameter List |
+
+</details>
 
 # Ranking and Prioritization
+
+<details>
 
 ## Most Critical Namespaces (Top 10)
 | Namespace | Severity | Representativity | Quality | Intervention | CDI |
@@ -143,6 +147,8 @@ DR-Tools Code Health - Diagnosis
 | org.springframework.boot.SpringApplication.prepareContext(DefaultBootstrapContext bootstrapContext, ConfigurableApplicationContext context, ConfigurableEnvironment environment, SpringApplicationRunListeners listeners, ApplicationArguments applicationArguments, Banner printedBanner) | 6.382 | 10.000 | 5.817 | 5.390 |  **45.113** |
 | org.springframework.boot.context.properties.source.SpringIterableConfigurationPropertySource$Mappings.updateMappings(String[] propertyNames) | 7.357 | 5.500 | 6.197 | 5.171 |  **41.366** |
 | org.springframework.boot.web.embedded.tomcat.TomcatWebServer.rethrowDeferredStartupExceptions() | 6.719 | 5.500 | 6.197 | 5.171 |  **37.778** |
+
+</details>
 
 **Legend:**
 
