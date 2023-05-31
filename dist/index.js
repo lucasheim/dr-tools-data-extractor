@@ -261,11 +261,13 @@ exports.outputTemplate = void 0;
 const common_1 = __nccwpck_require__(5083);
 const outputTemplate = (coocurrences) => {
     const entries = mapEntries(coocurrences);
-    return `${[
+    return `<details>${[
         outputSection(entries, common_1.Granularity.NAMESPACE),
         outputSection(entries, common_1.Granularity.TYPES),
         outputSection(entries, common_1.Granularity.METHODS)
-    ].join('\n\n')}`;
+    ].join('\n\n')}
+
+</details>`;
 };
 exports.outputTemplate = outputTemplate;
 const mapEntries = (coocurrences) => {
@@ -277,12 +279,12 @@ const outputSection = (categorizedCooccurrences, granularity) => {
         return '';
     }
     return `**Category: ${common_1.GranularityDescriptionMap[granularity]}**
-| Co-Occurrence | # of Instances | % | Impacts on |
-|:----------------|-----------:|-------------:|:---------------|
+| Co-Occurrence | # of Instances | % | Impacts on | Smells |
+|:----------------|-----------:|-------------:|:---------------|--:|
 ${sectionSummary.map(outputTableRow).join('\n')}`;
 };
-const outputTableRow = ({ description, impacts_on, instances, percentual }) => {
-    return `| ${description} | ${instances} | ${percentual} | ${impacts_on} |`;
+const outputTableRow = ({ description, impacts_on, instances, percentual, smells }) => {
+    return `| ${description} | ${instances} | ${percentual} | ${impacts_on} | ${smells} |`;
 };
 
 
@@ -423,11 +425,15 @@ const rankingConfig = {
     }
 };
 const outputTemplate = (namespaceRanking, typeRanking, methodRanking) => {
-    return [
+    return `<details>
+
+${[
         outputSection(namespaceRanking, common_1.Granularity.NAMESPACE),
         outputSection(typeRanking, common_1.Granularity.TYPES),
         outputSection(methodRanking, common_1.Granularity.METHODS)
-    ].join('\n');
+    ].join('\n')}
+
+</details>`;
 };
 exports.outputTemplate = outputTemplate;
 const outputSection = (items, granularity) => {
