@@ -41,7 +41,7 @@ const outputSection = (
 
   return `**Category: ${GranularityDescriptionMap[granularity]}**
 | Co-Occurrence | # of Instances | % | Impacts on | Smells |
-|:----------------|-----------:|-------------:|:---------------|--:|
+|:----------------|-----------:|-------------:|:---------------|:--|
 ${sectionSummary.map(outputTableRow).join('\n')}`
 }
 

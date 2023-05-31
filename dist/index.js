@@ -280,7 +280,7 @@ const outputSection = (categorizedCooccurrences, granularity) => {
     }
     return `**Category: ${common_1.GranularityDescriptionMap[granularity]}**
 | Co-Occurrence | # of Instances | % | Impacts on | Smells |
-|:----------------|-----------:|-------------:|:---------------|--:|
+|:----------------|-----------:|-------------:|:---------------|:--|
 ${sectionSummary.map(outputTableRow).join('\n')}`;
 };
 const outputTableRow = ({ description, impacts_on, instances, percentual, smells }) => {
